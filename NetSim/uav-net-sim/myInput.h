@@ -15,6 +15,8 @@ public:
   MyInput (); 
   virtual ~MyInput();
 
+  // The loadInput function is used to load 
+  // input data from an XML file named config.xml into the MyInput object.
   void loadInput (void);
 
   int m_num_uav;

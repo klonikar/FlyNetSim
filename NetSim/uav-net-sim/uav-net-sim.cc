@@ -1,4 +1,4 @@
-
+// System Libraries
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -14,6 +14,7 @@
 #include <libxml/xinclude.h>
 #include <libxml/tree.h>
 
+// NS3 Libraries
 #include "ns3/core-module.h"
 #include "ns3/network-module.h"
 #include "ns3/mobility-module.h"
@@ -25,6 +26,8 @@
 #include "ns3/epc-helper.h"
 #include "ns3/lte-module.h"
 #include "ns3/point-to-point-module.h"
+
+// My Libraries
 #include "myApps.h"
 #include "myInput.h"
 
@@ -36,7 +39,7 @@ long g_cmd_tot_delay = 0;
 long g_cmd_num = 0;
 
 
-pthread_t tid_gcs[2];
+pthread_t tid_gcs[2]; 
 pthread_t tid_uav[2];
 
 Ptr<MyApp> uavApp;
@@ -71,51 +74,55 @@ vector <Ptr<MyApp>> appVectCom;
 vector <Ptr<MyApp>> appVectTel;
 
 
+/* 
+* The above code is a function called RcvPacket. It receives a packet 
+* and an address as parameters.
+*/
 void RcvPacket(Ptr<Packet> p, Address &addr)
 {
-        uint8_t *buffer = new uint8_t[p->GetSize()];
-        p->CopyData(buffer, p->GetSize());
-        char *string =  (char *)buffer;
-        char *sTime = (char *)malloc(11);
-        memset(sTime, '\0', 11);
-        sprintf(sTime, "%10ld***", ns3::Simulator::Now().GetMilliSeconds());
-        strcat(string, sTime);
+  uint8_t *buffer = new uint8_t[p->GetSize()];
+  p->CopyData(buffer, p->GetSize());
+  char *string =  (char *)buffer;
+  char *sTime = (char *)malloc(11);
+  memset(sTime, '\0', 11);
+  sprintf(sTime, "%10ld***", ns3::Simulator::Now().GetMilliSeconds());
+  strcat(string, sTime);
 
 	char *s = (char *) malloc(1512);
-        memset(s, '\0', 1512);
+  memset(s, '\0', 1512);
 	strcpy(s, string);
   
-        if(string[3] == 'G')   // Packet from GCS to UAV with Control Commands
-        {
-          zmq_msg_t message;
-          zmq_msg_init_size (&message, strlen (string));
-          memcpy (zmq_msg_data (&message), string, strlen (string));
-          printf(" Publish MSG : %s \n", string);
-          zmq_sendmsg (publisherCm, &message, 0);
-          zmq_msg_close (&message);
+  if(string[3] == 'G')   // Packet from GCS to UAV with Control Commands
+  {
+    zmq_msg_t message;
+    zmq_msg_init_size (&message, strlen (string));
+    memcpy (zmq_msg_data (&message), string, strlen (string));
+    printf(" Publish MSG : %s \n", string);
+    zmq_sendmsg (publisherCm, &message, 0);
+    zmq_msg_close (&message);
 
 	  // Tokenize to parse packet to get packet ingress and egress time : do it in every one sec interval	 
 	  g_cmd_end = ns3::Simulator::Now().GetMilliSeconds();
 	  g_cmd_num++;
 	  
-          char* token = strtok(s, "***");
+    char* token = strtok(s, "***");
 	  int count = 0;
-          long ingress_time = 0;
-          long egress_time = 0;
+    long ingress_time = 0;
+    long egress_time = 0;
 
 	  while(token)
 	  {
-	      if(count == 4)
-              {
-             	ingress_time = (atol)(token);
-              }
-              else if(count == 5)
-              {
-               	egress_time = (atol)(token);
-              }
-              count++;
-              //printf("count = %d   token: %s \n", count, token);
-              token = strtok(NULL, "***");
+      if(count == 4)
+      {
+        ingress_time = (atol)(token);
+      }
+      else if(count == 5)
+      {
+        egress_time = (atol)(token);
+      }
+      count++;
+      //printf("count = %d   token: %s \n", count, token);
+      token = strtok(NULL, "***");
 	  }
 
 	  long net_delay = egress_time - ingress_time + 1;
@@ -123,75 +130,80 @@ void RcvPacket(Ptr<Packet> p, Address &addr)
 
 	  if((g_cmd_end - g_cmd_start) > 1000)   // print average network packet delay for command packets, in every sec
 	  {
-	      float g_cmd_avg_delay = (float)(g_cmd_tot_delay)/g_cmd_num;
-              printf(">>>>>> Average Network Delay for command packets: %f MilliSec.\n", g_cmd_avg_delay);
+      float g_cmd_avg_delay = (float)(g_cmd_tot_delay)/g_cmd_num;
+            printf(">>>>>> Average Network Delay for command packets: %f MilliSec.\n", g_cmd_avg_delay);
 
-	      //reset variables
-	      g_cmd_tot_delay = 0;
-	      g_cmd_num = 0; 
-	      g_cmd_start = g_cmd_end;
+      //reset variables
+      g_cmd_tot_delay = 0;
+      g_cmd_num = 0; 
+      g_cmd_start = g_cmd_end;
 	   }
 
-        }
-        else if (string[3] == 'U')  // Telemetry Packets from UAV to GCS
-        {
-         
-          zmq_msg_t message;
-          zmq_msg_init_size (&message, strlen (string));
-          memcpy (zmq_msg_data (&message), string, strlen (string));
-          printf(" Publish MSG : %s \n", string);
-          zmq_sendmsg (publisherTm, &message, 0); //Telemetry Information
-          std::cout << "Send DATA to EDGE >>>>>>>> " << std::endl;
-          zmq_msg_close (&message);
+  }
 
-        }
-        else if(string[3] == 'S')   // for SENSOR  // This section may need revision
-        {
-          printf("RECEIVED SENSOR DATA FROM NS3\n");
+  else if (string[3] == 'U')  // Telemetry Packets from UAV to GCS
+  {
+    
+    zmq_msg_t message;
+    zmq_msg_init_size (&message, strlen (string));
+    memcpy (zmq_msg_data (&message), string, strlen (string));
+    printf(" Publish MSG : %s \n", string);
+    zmq_sendmsg (publisherTm, &message, 0); //Telemetry Information
+    std::cout << "Send DATA to EDGE >>>>>>>> " << std::endl;
+    zmq_msg_close (&message);
 
-          while(true)
-          {
-            zmq_msg_t msg;
-            zmq_msg_init (&msg);
-            rc = (zmq_msg_recv (&msg, subscriber, 0));
-            int size = zmq_msg_size (&msg);
-            printf("ZMQ SENSOR DATA SIZE: %d \n", size);
-            char *strVZ = (char*)malloc (size + 1);
-            memcpy (strVZ, zmq_msg_data (&msg), size);
-            strVZ[size] = '\0';
-            printf("POPPED MSG from ZMQ: %s \n", strVZ);
+  }
 
-            if(strncmp(string+9,strVZ+9, 6) > 0)
-            {
-              //pop more from ZMQ and discard the current one
-              //continue;
-            }
-            else
-            {
-              printf(" Publish MSG from ZMQ: %s \n", strVZ);
-              zmq_sendmsg (publisherTm, &msg, 0); //Telemetry Information
-              break;
-            } 
-            zmq_msg_close (&msg);
-            free(strVZ);
-          }
+  else if(string[3] == 'S')   // for SENSOR  // This section may need revision
+  {
+    printf("RECEIVED SENSOR DATA FROM NS3\n");
 
-        }
-	else
-	{
+    while(true)
+    {
+      zmq_msg_t msg;
+      zmq_msg_init (&msg);
+      rc = (zmq_msg_recv (&msg, subscriber, 0));
+      int size = zmq_msg_size (&msg);
+      printf("ZMQ SENSOR DATA SIZE: %d \n", size);
+      char *strVZ = (char*)malloc (size + 1);
+      memcpy (strVZ, zmq_msg_data (&msg), size);
+      strVZ[size] = '\0';
+      printf("POPPED MSG from ZMQ: %s \n", strVZ);
 
-	}
+      if(strncmp(string+9,strVZ+9, 6) > 0)
+      {
+        //pop more from ZMQ and discard the current one
+        //continue;
+      }
+      else
+      {
+        printf(" Publish MSG from ZMQ: %s \n", strVZ);
+        zmq_sendmsg (publisherTm, &msg, 0); //Telemetry Information
+        break;
+      } 
+      zmq_msg_close (&msg);
+      free(strVZ);
+    }
 
-        free(sTime);
-        free(s);
+  }
+	else{	}
 
-        delete buffer;
+  free(sTime);
+  free(s);
+
+  delete buffer;
 
 }
 
-
+/* 
+* The above code is defining a function called "RcvPktTrace" that connects 
+* a callback function "RcvPacket" to the reception of packets in a network simulation. 
+* The callback function will be called whenever a packet is received by a PacketSink 
+* vapplication in any node of the network.
+*/
+ 
 void RcvPktTrace(){
-        Config::ConnectWithoutContext("/NodeList/*/ApplicationList/*/$ns3::PacketSink/Rx", MakeCallback(&RcvPacket));
+  Config::ConnectWithoutContext("/NodeList/*/ApplicationList/*/$ns3::PacketSink/Rx", MakeCallback(&RcvPacket));
 }
 
 /*****************************************************/
@@ -199,6 +211,10 @@ void RcvPktTrace(){
 /**** send command to specific UAV node over socket***/
 /*****************************************************/
 
+/*
+* The above code is a function called "rcvCommands" that receives commands 
+* from a ZeroMQ subscriber socket and sends them to specific UAV applications.
+*/
 void* rcvCommands(void *arg)
 {
 
@@ -237,11 +253,9 @@ void* rcvCommands(void *arg)
     Ptr<MyApp> app = (*vectCom)[sock_index]; //Pick specific UAV App 
  
     Ptr<Socket> send_socket = app->m_socket;
-    //  Ptr<Socket> send_socket = gcsApp->m_socket;
     last_schedule_time += 0.001; // Maintains Causality, although Scheduling is sequential
     Time tNext (Seconds (last_schedule_time));
     ns3::Simulator::Schedule(tNext, &MyApp::SendMsg, app, send_socket, string);
-    //ns3::Simulator::Schedule(tNext, &MyApp::SendMsg, gcsApp, send_socket, string);
   }
 
   zmq_close (subscriber);
@@ -256,6 +270,10 @@ void* rcvCommands(void *arg)
 /****   send telemetry to  GCS node over socket    ***/
 /*****************************************************/
 
+/*
+* The above code is declaring a function named "rcvTelemetry" that takes a void pointer 
+* as an argument. The function does not have a return type specified.
+*/
 void* rcvTelemetry(void *arg)
 {
   zmq_bind (publisherVid, "tcp://127.0.0.1:5000");
