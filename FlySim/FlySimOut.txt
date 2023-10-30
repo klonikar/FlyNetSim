@@ -1,0 +1,2212 @@
+CRITICAL:autopilot:APM:Copter V3.3 (d6053245)
+CRITICAL:autopilot:Frame: QUAD
+QObject::connect: Cannot queue arguments of type 'QTextCursor'
+(Make sure 'QTextCursor' is registered using qRegisterMetaType().)
+CRITICAL:autopilot:Calibrating barometer
+CRITICAL:autopilot:Initialising APM...
+CRITICAL:autopilot:barometer calibration complete
+CRITICAL:autopilot:GROUND START
+QObject::connect: Cannot queue arguments of type 'QTextCursor'
+(Make sure 'QTextCursor' is registered using qRegisterMetaType().)
+ERROR:autopilot:ARMING MOTORS
+CRITICAL:autopilot:GROUND START
+CRITICAL:autopilot:Initialising APM...
+ERROR:autopilot:ARMING MOTORS
+[MAIN] Starting the network simulator: xterm -T Network_Simulator -e 'cd /home/ptoloudis/FlyNetSim/NetSim/ns-allinone-3.27/ns-3.27 && ./waf --run="uav-net-sim" |& tee NetSimOut.txt'
+[MAIN] Started the network simulator: xterm -T Network_Simulator -e 'cd /home/ptoloudis/FlyNetSim/NetSim/ns-allinone-3.27/ns-3.27 && ./waf --run="uav-net-sim" |& tee NetSimOut.txt'
+[MAIN] [ZMQ] Binding publisher started tcp://127.0.0.1:5600
+[MAIN] [ZMQ] Publisher bound complete tcp://127.0.0.1:5600
+[MAIN] [ZMQ] Subscriber connect started tcp://127.0.0.1:5601
+[MAIN] [ZMQ] Subscriber connect complete tcp://127.0.0.1:5601 Prefix @@@G_000
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683944.683295
+GCS Current Timestamp: 1698683944.694823
+Simulated Network Delay: 0.012
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683944.893558
+GCS Current Timestamp: 1698683949.313059
+Simulated Network Delay: 0.012
+Receiving time : 1698683949.313052 exceeds estimated arrival time: 1698683944.905558
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683957.255727
+GCS Current Timestamp: 1698683957.267862
+Simulated Network Delay: 0.006
+[UAV_000] Vehicle armed
+[UAV_000] Vehicle armed
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683957.260988
+GCS Current Timestamp: 1698683970.146829
+Simulated Network Delay: 0.006
+Receiving time : 1698683970.146818 exceeds estimated arrival time: 1698683957.266988
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683957.765946
+GCS Current Timestamp: 1698683970.146853
+Simulated Network Delay: 0.002
+Receiving time : 1698683970.146848 exceeds estimated arrival time: 1698683957.767946
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683958.26934
+GCS Current Timestamp: 1698683970.146867
+Simulated Network Delay: 0.002
+Receiving time : 1698683970.146865 exceeds estimated arrival time: 1698683958.2713401
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683958.770643
+GCS Current Timestamp: 1698683970.14688
+Simulated Network Delay: 0.002
+Receiving time : 1698683970.146877 exceeds estimated arrival time: 1698683958.772643
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683959.277511
+GCS Current Timestamp: 1698683970.146891
+Simulated Network Delay: 0.002
+Receiving time : 1698683970.146889 exceeds estimated arrival time: 1698683959.279511
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683959.779942
+GCS Current Timestamp: 1698683970.146902
+Simulated Network Delay: 0.002
+Receiving time : 1698683970.146899 exceeds estimated arrival time: 1698683959.7819421
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683960.283897
+GCS Current Timestamp: 1698683970.146913
+Simulated Network Delay: 0.002
+Receiving time : 1698683970.14691 exceeds estimated arrival time: 1698683960.285897
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683960.787076
+GCS Current Timestamp: 1698683970.146924
+Simulated Network Delay: 0.002
+Receiving time : 1698683970.146921 exceeds estimated arrival time: 1698683960.789076
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683961.290011
+GCS Current Timestamp: 1698683970.146937
+Simulated Network Delay: 0.001
+Receiving time : 1698683970.146934 exceeds estimated arrival time: 1698683961.2910109
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683961.794874
+GCS Current Timestamp: 1698683970.146955
+Simulated Network Delay: 0.001
+Receiving time : 1698683970.146951 exceeds estimated arrival time: 1698683961.7958739
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683962.297371
+GCS Current Timestamp: 1698683970.146971
+Simulated Network Delay: 0.001
+Receiving time : 1698683970.146968 exceeds estimated arrival time: 1698683962.2983708
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683962.799415
+GCS Current Timestamp: 1698683970.146994
+Simulated Network Delay: 0.001
+Receiving time : 1698683970.146991 exceeds estimated arrival time: 1698683962.800415
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683963.302641
+GCS Current Timestamp: 1698683970.147005
+Simulated Network Delay: 0.001
+Receiving time : 1698683970.147002 exceeds estimated arrival time: 1698683963.3036408
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683963.803759
+GCS Current Timestamp: 1698683970.14706
+Simulated Network Delay: 0.001
+Receiving time : 1698683970.147056 exceeds estimated arrival time: 1698683963.804759
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683964.304785
+GCS Current Timestamp: 1698683970.147076
+Simulated Network Delay: 0.001
+Receiving time : 1698683970.147073 exceeds estimated arrival time: 1698683964.305785
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683964.805761
+GCS Current Timestamp: 1698683970.147093
+Simulated Network Delay: 0.002
+Receiving time : 1698683970.14709 exceeds estimated arrival time: 1698683964.8077612
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683965.3068
+GCS Current Timestamp: 1698683970.147106
+Simulated Network Delay: 0.003
+Receiving time : 1698683970.147102 exceeds estimated arrival time: 1698683965.3098
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683965.807771
+GCS Current Timestamp: 1698683970.147124
+Simulated Network Delay: 0.003
+Receiving time : 1698683970.14712 exceeds estimated arrival time: 1698683965.810771
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683966.308937
+GCS Current Timestamp: 1698683970.147141
+Simulated Network Delay: 0.002
+Receiving time : 1698683970.147137 exceeds estimated arrival time: 1698683966.3109372
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683966.810259
+GCS Current Timestamp: 1698683970.147153
+Simulated Network Delay: 0.002
+Receiving time : 1698683970.14715 exceeds estimated arrival time: 1698683966.8122592
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683967.311661
+GCS Current Timestamp: 1698683970.147163
+Simulated Network Delay: 0.002
+Receiving time : 1698683970.14716 exceeds estimated arrival time: 1698683967.313661
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683967.813149
+GCS Current Timestamp: 1698683970.147174
+Simulated Network Delay: 0.002
+Receiving time : 1698683970.147171 exceeds estimated arrival time: 1698683967.815149
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683968.314411
+GCS Current Timestamp: 1698683970.147186
+Simulated Network Delay: 0.001
+Receiving time : 1698683970.147183 exceeds estimated arrival time: 1698683968.3154109
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683968.816261
+GCS Current Timestamp: 1698683970.147198
+Simulated Network Delay: 0.001
+Receiving time : 1698683970.147195 exceeds estimated arrival time: 1698683968.817261
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683969.31694
+GCS Current Timestamp: 1698683970.147209
+Simulated Network Delay: 0.001
+Receiving time : 1698683970.147207 exceeds estimated arrival time: 1698683969.31794
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683969.81866
+GCS Current Timestamp: 1698683970.147222
+Simulated Network Delay: 0.001
+Receiving time : 1698683970.147219 exceeds estimated arrival time: 1698683969.81966
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683970.319935
+GCS Current Timestamp: 1698683970.32297
+Simulated Network Delay: 0.001
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683970.822619
+GCS Current Timestamp: 1698683970.827139
+Simulated Network Delay: 0.001
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683971.323932
+GCS Current Timestamp: 1698683971.332598
+Simulated Network Delay: 0.001
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683971.825129
+GCS Current Timestamp: 1698683971.828563
+Simulated Network Delay: 0.001
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683972.326389
+GCS Current Timestamp: 1698683972.330296
+Simulated Network Delay: 0.001
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683972.82755
+GCS Current Timestamp: 1698683972.830881
+Simulated Network Delay: 0.001
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683973.328152
+GCS Current Timestamp: 1698683973.332996
+Simulated Network Delay: 0.001
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683973.829309
+GCS Current Timestamp: 1698683973.832885
+Simulated Network Delay: 0.001
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683974.329982
+GCS Current Timestamp: 1698683974.33281
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683974.831256
+GCS Current Timestamp: 1698683974.83625
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683975.333627
+GCS Current Timestamp: 1698683975.335913
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683975.835008
+GCS Current Timestamp: 1698683975.839338
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683976.336053
+GCS Current Timestamp: 1698683976.339472
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683976.836665
+GCS Current Timestamp: 1698683976.839691
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683977.101918
+GCS Current Timestamp: 1698683977.107415
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683977.337821
+GCS Current Timestamp: 1698683985.117913
+Simulated Network Delay: 0.0
+Receiving time : 1698683985.117905 exceeds estimated arrival time: 1698683977.337821
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683977.839322
+GCS Current Timestamp: 1698683985.117928
+Simulated Network Delay: 0.0
+Receiving time : 1698683985.117925 exceeds estimated arrival time: 1698683977.839322
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683978.340495
+GCS Current Timestamp: 1698683985.11794
+Simulated Network Delay: 0.001
+Receiving time : 1698683985.117937 exceeds estimated arrival time: 1698683978.341495
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683978.841867
+GCS Current Timestamp: 1698683985.117953
+Simulated Network Delay: 0.0
+Receiving time : 1698683985.11795 exceeds estimated arrival time: 1698683978.841867
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683979.343706
+GCS Current Timestamp: 1698683985.117964
+Simulated Network Delay: 0.0
+Receiving time : 1698683985.117962 exceeds estimated arrival time: 1698683979.343706
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683979.845108
+GCS Current Timestamp: 1698683985.117975
+Simulated Network Delay: 0.0
+Receiving time : 1698683985.117973 exceeds estimated arrival time: 1698683979.845108
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683980.346551
+GCS Current Timestamp: 1698683985.117986
+Simulated Network Delay: 0.001
+Receiving time : 1698683985.117984 exceeds estimated arrival time: 1698683980.3475509
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683980.84809
+GCS Current Timestamp: 1698683985.117997
+Simulated Network Delay: 0.0
+Receiving time : 1698683985.117994 exceeds estimated arrival time: 1698683980.84809
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683981.349389
+GCS Current Timestamp: 1698683985.118007
+Simulated Network Delay: 0.001
+Receiving time : 1698683985.118005 exceeds estimated arrival time: 1698683981.350389
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683981.850552
+GCS Current Timestamp: 1698683985.118018
+Simulated Network Delay: 0.002
+Receiving time : 1698683985.118016 exceeds estimated arrival time: 1698683981.8525522
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683982.351577
+GCS Current Timestamp: 1698683985.118029
+Simulated Network Delay: 0.0
+Receiving time : 1698683985.118026 exceeds estimated arrival time: 1698683982.351577
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683982.853058
+GCS Current Timestamp: 1698683985.118039
+Simulated Network Delay: 0.0
+Receiving time : 1698683985.118037 exceeds estimated arrival time: 1698683982.853058
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683983.354036
+GCS Current Timestamp: 1698683985.11805
+Simulated Network Delay: 0.0
+Receiving time : 1698683985.118047 exceeds estimated arrival time: 1698683983.354036
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683983.855471
+GCS Current Timestamp: 1698683985.118071
+Simulated Network Delay: 0.0
+Receiving time : 1698683985.118058 exceeds estimated arrival time: 1698683983.855471
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683984.35632
+GCS Current Timestamp: 1698683985.118082
+Simulated Network Delay: 0.0
+Receiving time : 1698683985.11808 exceeds estimated arrival time: 1698683984.35632
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683984.857967
+GCS Current Timestamp: 1698683985.118093
+Simulated Network Delay: 0.0
+Receiving time : 1698683985.11809 exceeds estimated arrival time: 1698683984.857967
+0.0	0.0	98
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683985.35931
+GCS Current Timestamp: 1698683985.362063
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683985.860618
+GCS Current Timestamp: 1698683985.863349
+Simulated Network Delay: 0.0
+-0.0111319501301	-0.0111319493391	97
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683986.361716
+GCS Current Timestamp: 1698683986.363907
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683986.863126
+GCS Current Timestamp: 1698683986.86707
+Simulated Network Delay: 0.0
+-0.0111319501301	0.0	97
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683987.363889
+GCS Current Timestamp: 1698683987.367506
+Simulated Network Delay: 0.002
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683987.864836
+GCS Current Timestamp: 1698683987.866539
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683988.366068
+GCS Current Timestamp: 1698683988.368406
+Simulated Network Delay: 0.0
+0.0	0.0	97
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683988.868235
+GCS Current Timestamp: 1698683988.876745
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683989.369721
+GCS Current Timestamp: 1698683989.371294
+Simulated Network Delay: 0.0
+0.0222638994692	0.0	97
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683989.870742
+GCS Current Timestamp: 1698683989.873245
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683990.372005
+GCS Current Timestamp: 1698683990.37434
+Simulated Network Delay: 0.0
+0.0222638994692	-0.0111319493391	96
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683990.87312
+GCS Current Timestamp: 1698683990.875451
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683991.374084
+GCS Current Timestamp: 1698683991.376016
+Simulated Network Delay: 0.0
+0.0445277997294	-0.0222638986782	96
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683991.875341
+GCS Current Timestamp: 1698683991.878492
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683992.376628
+GCS Current Timestamp: 1698683992.380629
+Simulated Network Delay: 0.002
+0.0556597498595	-0.0445277973565	96
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683992.877842
+GCS Current Timestamp: 1698683992.879599
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683993.378852
+GCS Current Timestamp: 1698683993.381446
+Simulated Network Delay: 0.0
+0.0667916999896	-0.0667916991986	96
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683993.879965
+GCS Current Timestamp: 1698683993.882629
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683994.381328
+GCS Current Timestamp: 1698683994.383444
+Simulated Network Delay: 0.0
+0.0779236501197	-0.0779236485377	96
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683994.881857
+GCS Current Timestamp: 1698683994.883629
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683995.368219
+GCS Current Timestamp: 1698683995.375222
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683995.382826
+GCS Current Timestamp: 1698683995.38645
+Simulated Network Delay: 0.001
+0.0890555994588	-0.0890555978768	95
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683995.884167
+GCS Current Timestamp: 1698683995.88603
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683996.385572
+GCS Current Timestamp: 1698683996.387372
+Simulated Network Delay: 0.0
+0.278298750088	-0.100187547216	95
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683996.886633
+GCS Current Timestamp: 1698683996.892825
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683997.387748
+GCS Current Timestamp: 1698683997.390781
+Simulated Network Delay: 0.001
+1.22451450007	-0.0667916991986	95
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683997.889472
+GCS Current Timestamp: 1698683997.891258
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683998.390424
+GCS Current Timestamp: 1698683998.402663
+Simulated Network Delay: 0.0
+2.81638334969	0.0445278005204	95
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683998.891465
+GCS Current Timestamp: 1698683998.894361
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683999.392918
+GCS Current Timestamp: 1698683999.397347
+Simulated Network Delay: 0.0
+4.96484969949	0.178111202081	94
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698683999.894219
+GCS Current Timestamp: 1698683999.896193
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684000.395636
+GCS Current Timestamp: 1698684000.397451
+Simulated Network Delay: 0.0
+7.51406625001	0.333958502321	94
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684000.897106
+GCS Current Timestamp: 1698684000.899406
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684001.398106
+GCS Current Timestamp: 1698684001.40002
+Simulated Network Delay: 0.0
+8.97235169965	0.423014100198	94
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684001.899084
+GCS Current Timestamp: 1698684001.902518
+Simulated Network Delay: 0.001
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684002.400259
+GCS Current Timestamp: 1698684002.402693
+Simulated Network Delay: 0.0
+9.84064379952	0.456409951379	94
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684002.901368
+GCS Current Timestamp: 1698684002.905579
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684003.402028
+GCS Current Timestamp: 1698684003.405729
+Simulated Network Delay: 0.0
+10.3527135	0.478673850057	94
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684003.903323
+GCS Current Timestamp: 1698684003.916776
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684004.405091
+GCS Current Timestamp: 1698684004.407701
+Simulated Network Delay: 0.0
+10.5196927495	0.478673850057	93
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684004.906506
+GCS Current Timestamp: 1698684004.909374
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684005.407799
+GCS Current Timestamp: 1698684005.410574
+Simulated Network Delay: 0.001
+10.5308246997	0.44527800204	93
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684005.909268
+GCS Current Timestamp: 1698684005.911349
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684006.411978
+GCS Current Timestamp: 1698684006.415174
+Simulated Network Delay: 0.0
+10.4640329997	0.434146052701	93
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684006.912721
+GCS Current Timestamp: 1698684006.914497
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684007.413962
+GCS Current Timestamp: 1698684007.416288
+Simulated Network Delay: 0.0
+10.3415815498	0.434146052701	93
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684007.915369
+GCS Current Timestamp: 1698684007.918155
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684008.416428
+GCS Current Timestamp: 1698684008.419133
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684008.917731
+GCS Current Timestamp: 1698684008.92047
+Simulated Network Delay: 0.001
+10.2413939995	0.434146052701	92
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684009.419237
+GCS Current Timestamp: 1698684009.422619
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684009.919871
+GCS Current Timestamp: 1698684009.92263
+Simulated Network Delay: 0.0
+10.1634703501	0.456409951379	92
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684010.420942
+GCS Current Timestamp: 1698684010.423055
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684010.921878
+GCS Current Timestamp: 1698684010.924664
+Simulated Network Delay: 0.0
+10.1078105995	0.456409951379	92
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684011.423168
+GCS Current Timestamp: 1698684011.425213
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684011.924739
+GCS Current Timestamp: 1698684011.926928
+Simulated Network Delay: 0.0
+10.0855467	0.456409951379	92
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684012.425148
+GCS Current Timestamp: 1698684012.427308
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684012.926406
+GCS Current Timestamp: 1698684012.928367
+Simulated Network Delay: 0.0
+10.0744147499	0.456409951379	92
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684013.427561
+GCS Current Timestamp: 1698684013.429275
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684013.9288
+GCS Current Timestamp: 1698684013.930447
+Simulated Network Delay: 0.0
+10.0744147499	0.434146052701	91
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684014.429464
+GCS Current Timestamp: 1698684014.431432
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684014.930179
+GCS Current Timestamp: 1698684014.931733
+Simulated Network Delay: 0.0
+10.0855467	0.423014100198	91
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684015.430889
+GCS Current Timestamp: 1698684015.434145
+Simulated Network Delay: 0.001
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684015.931763
+GCS Current Timestamp: 1698684015.934532
+Simulated Network Delay: 0.0
+10.1300744997	0.423014100198	91
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684016.433213
+GCS Current Timestamp: 1698684016.435121
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684016.935308
+GCS Current Timestamp: 1698684016.937443
+Simulated Network Delay: 0.0
+10.1300744997	0.423014100198	91
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684017.437444
+GCS Current Timestamp: 1698684017.439642
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684017.937908
+GCS Current Timestamp: 1698684017.940322
+Simulated Network Delay: 0.0
+10.1523384	0.411882150858	90
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684018.439027
+GCS Current Timestamp: 1698684018.440736
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684018.939771
+GCS Current Timestamp: 1698684018.941856
+Simulated Network Delay: 0.002
+10.1523384	0.423014100198	90
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684019.44128
+GCS Current Timestamp: 1698684019.44368
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684019.942253
+GCS Current Timestamp: 1698684019.944206
+Simulated Network Delay: 0.0
+10.1412064499	0.423014100198	90
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684020.443499
+GCS Current Timestamp: 1698684020.445165
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684020.944702
+GCS Current Timestamp: 1698684020.946881
+Simulated Network Delay: 0.0
+10.1412064499	0.423014100198	90
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684021.446553
+GCS Current Timestamp: 1698684021.452049
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684021.947954
+GCS Current Timestamp: 1698684021.950198
+Simulated Network Delay: 0.0
+10.1078105995	0.411882150858	90
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684022.449476
+GCS Current Timestamp: 1698684022.451071
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684022.950982
+GCS Current Timestamp: 1698684022.963509
+Simulated Network Delay: 0.0
+10.1189425496	0.400750201519	89
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684023.452251
+GCS Current Timestamp: 1698684023.45389
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684023.953648
+GCS Current Timestamp: 1698684023.955951
+Simulated Network Delay: 0.0
+10.1189425496	0.38961825218	89
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684024.455101
+GCS Current Timestamp: 1698684024.457588
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684024.956342
+GCS Current Timestamp: 1698684024.958325
+Simulated Network Delay: 0.0
+10.1078105995	0.38961825218	89
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684025.457726
+GCS Current Timestamp: 1698684025.46143
+Simulated Network Delay: 0.001
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684025.95899
+GCS Current Timestamp: 1698684025.962769
+Simulated Network Delay: 0.0
+10.1300744997	0.378486299677	89
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684026.460534
+GCS Current Timestamp: 1698684026.462754
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684026.961677
+GCS Current Timestamp: 1698684026.96522
+Simulated Network Delay: 0.0
+10.1189425496	0.38961825218	88
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684027.463065
+GCS Current Timestamp: 1698684027.465423
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684027.964309
+GCS Current Timestamp: 1698684027.965937
+Simulated Network Delay: 0.0
+10.1189425496	0.411882150858	88
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684028.465302
+GCS Current Timestamp: 1698684028.466845
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684028.966766
+GCS Current Timestamp: 1698684028.970532
+Simulated Network Delay: 0.001
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684029.468086
+GCS Current Timestamp: 1698684029.470576
+Simulated Network Delay: 0.0
+10.1412064499	0.411882150858	88
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684029.96923
+GCS Current Timestamp: 1698684029.971122
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684030.470329
+GCS Current Timestamp: 1698684030.473594
+Simulated Network Delay: 0.0
+10.1412064499	0.44527800204	88
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684030.971867
+GCS Current Timestamp: 1698684030.975809
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684031.473648
+GCS Current Timestamp: 1698684031.477437
+Simulated Network Delay: 0.0
+10.1634703501	0.456409951379	88
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684031.975181
+GCS Current Timestamp: 1698684031.978667
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684032.176594
+GCS Current Timestamp: 1698684032.178867
+Simulated Network Delay: 0.001
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684032.476913
+GCS Current Timestamp: 1698684032.480416
+Simulated Network Delay: 0.0
+10.1857342496	0.434146052701	87
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684032.978285
+GCS Current Timestamp: 1698684032.99261
+Simulated Network Delay: 0.001
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684033.478921
+GCS Current Timestamp: 1698684033.481296
+Simulated Network Delay: 0.0
+10.4974288501	0.423014100198	87
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684033.979698
+GCS Current Timestamp: 1698684033.982577
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684034.480631
+GCS Current Timestamp: 1698684034.483487
+Simulated Network Delay: 0.0
+11.5327001995	0.400750201519	87
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684034.981907
+GCS Current Timestamp: 1698684034.983754
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684035.482969
+GCS Current Timestamp: 1698684035.48626
+Simulated Network Delay: 0.001
+13.1579648995	0.34509045166	87
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684035.984858
+GCS Current Timestamp: 1698684035.987185
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684036.485412
+GCS Current Timestamp: 1698684036.48866
+Simulated Network Delay: 0.0
+15.8852926498	0.2894307018	86
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684036.986585
+GCS Current Timestamp: 1698684036.989851
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684037.487755
+GCS Current Timestamp: 1698684037.489998
+Simulated Network Delay: 0.0
+17.8890436494	0.300562651139	86
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684037.988995
+GCS Current Timestamp: 1698684037.994183
+Simulated Network Delay: 0.001
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684038.490177
+GCS Current Timestamp: 1698684038.492854
+Simulated Network Delay: 0.0
+19.35846105	0.356222400999	86
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684038.991799
+GCS Current Timestamp: 1698684038.993555
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684039.493105
+GCS Current Timestamp: 1698684039.496015
+Simulated Network Delay: 0.0
+20.1933572995	0.400750201519	86
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684039.994305
+GCS Current Timestamp: 1698684039.996491
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684040.495311
+GCS Current Timestamp: 1698684040.498992
+Simulated Network Delay: 0.001
+20.6163713997	0.434146052701	86
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684040.996655
+GCS Current Timestamp: 1698684040.998277
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684041.497916
+GCS Current Timestamp: 1698684041.4997
+Simulated Network Delay: 0.0
+20.85014235	0.478673850057	85
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684041.998894
+GCS Current Timestamp: 1698684042.001385
+Simulated Network Delay: 0.001
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684042.499889
+GCS Current Timestamp: 1698684042.501965
+Simulated Network Delay: 0.0
+20.8835381996	0.523201650577	85
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684043.000414
+GCS Current Timestamp: 1698684043.002164
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684043.501496
+GCS Current Timestamp: 1698684043.503536
+Simulated Network Delay: 0.0
+20.8167464996	0.523201650577	85
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684044.002554
+GCS Current Timestamp: 1698684044.005283
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684044.503293
+GCS Current Timestamp: 1698684044.507931
+Simulated Network Delay: 0.0
+20.7165589501	0.512069701238	85
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684045.006242
+GCS Current Timestamp: 1698684045.008068
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684045.507264
+GCS Current Timestamp: 1698684045.510719
+Simulated Network Delay: 0.001
+20.5941074994	0.512069701238	85
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684046.009258
+GCS Current Timestamp: 1698684046.011578
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684046.510722
+GCS Current Timestamp: 1698684046.514198
+Simulated Network Delay: 0.0
+20.5384477496	0.478673850057	84
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684047.012232
+GCS Current Timestamp: 1698684047.015499
+Simulated Network Delay: 0.001
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684047.513365
+GCS Current Timestamp: 1698684047.516824
+Simulated Network Delay: 0.0
+20.4939199498	0.44527800204	84
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684048.014176
+GCS Current Timestamp: 1698684048.015865
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684048.515035
+GCS Current Timestamp: 1698684048.51693
+Simulated Network Delay: 0.0
+20.4716560496	0.423014100198	84
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684049.015697
+GCS Current Timestamp: 1698684049.019228
+Simulated Network Delay: 0.002
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684049.516955
+GCS Current Timestamp: 1698684049.520932
+Simulated Network Delay: 0.0
+20.4493921501	0.434146052701	84
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684050.018016
+GCS Current Timestamp: 1698684050.019875
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684050.519167
+GCS Current Timestamp: 1698684050.523403
+Simulated Network Delay: 0.0
+20.4605240994	0.423014100198	83
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684051.020589
+GCS Current Timestamp: 1698684051.022474
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684051.52162
+GCS Current Timestamp: 1698684051.523421
+Simulated Network Delay: 0.0
+20.4493921501	0.411882150858	83
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684052.022771
+GCS Current Timestamp: 1698684052.026081
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684052.523885
+GCS Current Timestamp: 1698684052.52756
+Simulated Network Delay: 0.001
+20.4382602	0.400750201519	83
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684053.024923
+GCS Current Timestamp: 1698684053.026971
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684053.526265
+GCS Current Timestamp: 1698684053.528429
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684054.027085
+GCS Current Timestamp: 1698684054.028985
+Simulated Network Delay: 0.0
+20.4382602	0.411882150858	83
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684054.528219
+GCS Current Timestamp: 1698684054.530069
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684055.02909
+GCS Current Timestamp: 1698684055.031422
+Simulated Network Delay: 0.0
+20.4493921501	0.400750201519	83
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684055.530371
+GCS Current Timestamp: 1698684055.532467
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684056.031556
+GCS Current Timestamp: 1698684056.036062
+Simulated Network Delay: 0.001
+20.4605240994	0.423014100198	82
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684056.532911
+GCS Current Timestamp: 1698684056.535189
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684057.034321
+GCS Current Timestamp: 1698684057.036424
+Simulated Network Delay: 0.0
+20.4605240994	0.44527800204	82
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684057.53587
+GCS Current Timestamp: 1698684057.537625
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684058.036845
+GCS Current Timestamp: 1698684058.038772
+Simulated Network Delay: 0.0
+20.4716560496	0.456409951379	82
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684058.53817
+GCS Current Timestamp: 1698684058.540111
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684059.039331
+GCS Current Timestamp: 1698684059.04144
+Simulated Network Delay: 0.0
+20.4716560496	0.456409951379	82
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684059.540434
+GCS Current Timestamp: 1698684059.542931
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684060.041617
+GCS Current Timestamp: 1698684060.043346
+Simulated Network Delay: 0.0
+20.4827879997	0.478673850057	81
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684060.542615
+GCS Current Timestamp: 1698684060.544586
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684061.04374
+GCS Current Timestamp: 1698684061.046949
+Simulated Network Delay: 0.0
+20.4605240994	0.478673850057	81
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684061.544368
+GCS Current Timestamp: 1698684061.548785
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684062.045752
+GCS Current Timestamp: 1698684062.048728
+Simulated Network Delay: 0.0
+20.4493921501	0.478673850057	81
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684062.547214
+GCS Current Timestamp: 1698684062.550076
+Simulated Network Delay: 0.001
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684063.048779
+GCS Current Timestamp: 1698684063.052176
+Simulated Network Delay: 0.0
+20.4382602	0.48980580256	81
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684063.550166
+GCS Current Timestamp: 1698684063.552429
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684064.051279
+GCS Current Timestamp: 1698684064.053885
+Simulated Network Delay: 0.0
+20.4382602	0.48980580256	81
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684064.55265
+GCS Current Timestamp: 1698684064.555947
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684065.053853
+GCS Current Timestamp: 1698684065.05593
+Simulated Network Delay: 0.0
+20.4271282498	0.478673850057	80
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684065.55528
+GCS Current Timestamp: 1698684065.558276
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684066.056493
+GCS Current Timestamp: 1698684066.059469
+Simulated Network Delay: 0.0
+20.4493921501	0.512069701238	80
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684066.557765
+GCS Current Timestamp: 1698684066.560457
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684066.7463
+GCS Current Timestamp: 1698684066.749771
+Simulated Network Delay: 0.002
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684067.059251
+GCS Current Timestamp: 1698684067.062138
+Simulated Network Delay: 0.0
+20.4605240994	0.523201650577	80
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684067.560495
+GCS Current Timestamp: 1698684067.563875
+Simulated Network Delay: 0.001
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684068.061498
+GCS Current Timestamp: 1698684068.063524
+Simulated Network Delay: 0.0
+20.4493921501	0.879424051576	80
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684068.562619
+GCS Current Timestamp: 1698684068.565369
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684069.063935
+GCS Current Timestamp: 1698684069.067435
+Simulated Network Delay: 0.0
+20.3603365499	2.15959830151	80
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684069.565307
+GCS Current Timestamp: 1698684069.568036
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684070.066862
+GCS Current Timestamp: 1698684070.070304
+Simulated Network Delay: 0.0
+20.4048643496	4.83126630109	79
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684070.568247
+GCS Current Timestamp: 1698684070.57124
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684071.069646
+GCS Current Timestamp: 1698684071.082738
+Simulated Network Delay: 0.0
+20.5273157994	7.56972599987	79
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684071.571359
+GCS Current Timestamp: 1698684071.573708
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684072.072796
+GCS Current Timestamp: 1698684072.075764
+Simulated Network Delay: 0.0
+20.5607116498	10.0521508512	79
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684072.574286
+GCS Current Timestamp: 1698684072.57615
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684073.075309
+GCS Current Timestamp: 1698684073.077437
+Simulated Network Delay: 0.0
+20.5829755501	12.2117491527	79
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684073.576895
+GCS Current Timestamp: 1698684073.579274
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684074.078263
+GCS Current Timestamp: 1698684074.080104
+Simulated Network Delay: 0.0
+20.5495796997	13.1245690523	78
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684074.580993
+GCS Current Timestamp: 1698684074.583663
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684075.082263
+GCS Current Timestamp: 1698684075.08432
+Simulated Network Delay: 0.0
+20.5050519	13.5921109499	78
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684075.583509
+GCS Current Timestamp: 1698684075.585082
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684076.084849
+GCS Current Timestamp: 1698684076.087359
+Simulated Network Delay: 0.0
+20.4716560496	13.8370138511	78
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684076.586147
+GCS Current Timestamp: 1698684076.588576
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684077.087286
+GCS Current Timestamp: 1698684077.089473
+Simulated Network Delay: 0.0
+20.4048643496	13.8704097023	78
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684077.588703
+GCS Current Timestamp: 1698684077.591532
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684078.090051
+GCS Current Timestamp: 1698684078.091995
+Simulated Network Delay: 0.0
+20.3826004501	13.7813541013	77
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684078.591166
+GCS Current Timestamp: 1698684078.593644
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684079.092453
+GCS Current Timestamp: 1698684079.094775
+Simulated Network Delay: 0.001
+20.3714685	13.6700346016	77
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684079.593759
+GCS Current Timestamp: 1698684079.596504
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684080.095045
+GCS Current Timestamp: 1698684080.097419
+Simulated Network Delay: 0.0
+20.3714685	13.5475831525	77
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684080.596117
+GCS Current Timestamp: 1698684080.597773
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684081.097387
+GCS Current Timestamp: 1698684081.099353
+Simulated Network Delay: 0.0
+20.3826004501	13.4585275515	77
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684081.598508
+GCS Current Timestamp: 1698684081.600885
+Simulated Network Delay: 0.001
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684082.099268
+GCS Current Timestamp: 1698684082.103482
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684082.600844
+GCS Current Timestamp: 1698684082.603139
+Simulated Network Delay: 0.0
+20.4048643496	13.4362636528	77
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684083.102363
+GCS Current Timestamp: 1698684083.105136
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684083.603007
+GCS Current Timestamp: 1698684083.60591
+Simulated Network Delay: 0.0
+20.4271282498	13.4139997509	76
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684084.104429
+GCS Current Timestamp: 1698684084.105942
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684084.604974
+GCS Current Timestamp: 1698684084.607224
+Simulated Network Delay: 0.0
+20.4382602	13.3917358523	76
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684085.10634
+GCS Current Timestamp: 1698684085.108801
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684085.607297
+GCS Current Timestamp: 1698684085.61004
+Simulated Network Delay: 0.0
+20.4493921501	13.4139997509	76
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684086.108214
+GCS Current Timestamp: 1698684086.109783
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684086.608741
+GCS Current Timestamp: 1698684086.610189
+Simulated Network Delay: 0.0
+20.4493921501	13.4251317003	76
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684087.109437
+GCS Current Timestamp: 1698684087.112135
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684087.61074
+GCS Current Timestamp: 1698684087.612505
+Simulated Network Delay: 0.0
+20.4716560496	13.4362636528	75
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684088.112099
+GCS Current Timestamp: 1698684088.114399
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684088.613074
+GCS Current Timestamp: 1698684088.615542
+Simulated Network Delay: 0.0
+20.4716560496	13.4251317003	75
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684089.114181
+GCS Current Timestamp: 1698684089.116169
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684089.614789
+GCS Current Timestamp: 1698684089.617258
+Simulated Network Delay: 0.0
+20.4827879997	13.4139997509	75
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684090.11604
+GCS Current Timestamp: 1698684090.118914
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684090.617786
+GCS Current Timestamp: 1698684090.621411
+Simulated Network Delay: 0.0
+20.4716560496	13.4028678016	75
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684091.118928
+GCS Current Timestamp: 1698684091.121457
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684091.620494
+GCS Current Timestamp: 1698684091.623103
+Simulated Network Delay: 0.0
+20.4716560496	13.3806038998	75
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684092.1212
+GCS Current Timestamp: 1698684092.123838
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684092.622624
+GCS Current Timestamp: 1698684092.62756
+Simulated Network Delay: 0.0
+20.4605240994	13.3917358523	74
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684093.124174
+GCS Current Timestamp: 1698684093.126077
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684093.625338
+GCS Current Timestamp: 1698684093.628511
+Simulated Network Delay: 0.0
+20.4493921501	13.4028678016	74
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684094.126823
+GCS Current Timestamp: 1698684094.129723
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684094.627834
+GCS Current Timestamp: 1698684094.630839
+Simulated Network Delay: 0.0
+20.4382602	13.4139997509	74
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684095.129059
+GCS Current Timestamp: 1698684095.131861
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684095.629997
+GCS Current Timestamp: 1698684095.632013
+Simulated Network Delay: 0.0
+20.4382602	13.4362636528	74
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684096.131229
+GCS Current Timestamp: 1698684096.133584
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684096.632482
+GCS Current Timestamp: 1698684096.642076
+Simulated Network Delay: 0.0
+20.4493921501	13.4362636528	74
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684097.13347
+GCS Current Timestamp: 1698684097.136659
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684097.635021
+GCS Current Timestamp: 1698684097.641578
+Simulated Network Delay: 0.0
+20.4493921501	13.4473956021	73
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684098.13633
+GCS Current Timestamp: 1698684098.139672
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684098.637848
+GCS Current Timestamp: 1698684098.63976
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684099.139361
+GCS Current Timestamp: 1698684099.142568
+Simulated Network Delay: 0.0
+20.4493921501	13.4473956021	73
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684099.640499
+GCS Current Timestamp: 1698684099.642409
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684100.142036
+GCS Current Timestamp: 1698684100.143846
+Simulated Network Delay: 0.0
+20.4382602	13.4585275515	73
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684100.643265
+GCS Current Timestamp: 1698684100.646111
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684101.144611
+GCS Current Timestamp: 1698684101.14647
+Simulated Network Delay: 0.0
+20.4271282498	13.4696595008	73
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684101.645951
+GCS Current Timestamp: 1698684101.647876
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684102.146912
+GCS Current Timestamp: 1698684102.148733
+Simulated Network Delay: 0.0
+20.4382602	13.4807914501	72
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684102.64807
+GCS Current Timestamp: 1698684102.649697
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684103.149417
+GCS Current Timestamp: 1698684103.152346
+Simulated Network Delay: 0.0
+20.4493921501	13.4585275515	72
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684103.6504
+GCS Current Timestamp: 1698684103.652317
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684104.151636
+GCS Current Timestamp: 1698684104.154528
+Simulated Network Delay: 0.0
+20.4493921501	13.4585275515	72
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684104.652067
+GCS Current Timestamp: 1698684104.653654
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684104.827088
+GCS Current Timestamp: 1698684104.829352
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684104.82761
+GCS Current Timestamp: 1698684104.830095
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684105.152977
+GCS Current Timestamp: 1698684105.156827
+Simulated Network Delay: 0.0
+20.4493921501	13.4473956021	72
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684105.654177
+GCS Current Timestamp: 1698684105.655672
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684106.155448
+GCS Current Timestamp: 1698684106.157361
+Simulated Network Delay: 0.0
+20.4605240994	13.4362636528	72
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684106.656486
+GCS Current Timestamp: 1698684106.658702
+Simulated Network Delay: 0.001
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684107.156941
+GCS Current Timestamp: 1698684107.158855
+Simulated Network Delay: 0.0
+20.4605240994	13.4362636528	71
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684107.658099
+GCS Current Timestamp: 1698684107.65968
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684108.159619
+GCS Current Timestamp: 1698684108.162001
+Simulated Network Delay: 0.0
+20.4605240994	13.4362636528	71
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684108.660692
+GCS Current Timestamp: 1698684108.662468
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684109.162028
+GCS Current Timestamp: 1698684109.163716
+Simulated Network Delay: 0.0
+20.4827879997	13.4473956021	71
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684109.663008
+GCS Current Timestamp: 1698684109.665405
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684110.164209
+GCS Current Timestamp: 1698684110.166616
+Simulated Network Delay: 0.0
+20.4827879997	13.4362636528	71
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684110.665352
+GCS Current Timestamp: 1698684110.667199
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684111.166094
+GCS Current Timestamp: 1698684111.168019
+Simulated Network Delay: 0.0
+20.4716560496	13.4362636528	70
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684111.666661
+GCS Current Timestamp: 1698684111.668549
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684112.16745
+GCS Current Timestamp: 1698684112.170156
+Simulated Network Delay: 0.0
+20.4827879997	13.4362636528	70
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684112.668793
+GCS Current Timestamp: 1698684112.670375
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684113.170188
+GCS Current Timestamp: 1698684113.174341
+Simulated Network Delay: 0.0
+20.4716560496	13.4362636528	70
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684113.671342
+GCS Current Timestamp: 1698684113.674088
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684114.173091
+GCS Current Timestamp: 1698684114.175506
+Simulated Network Delay: 0.0
+20.4605240994	13.4473956021	70
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684114.674465
+GCS Current Timestamp: 1698684114.678082
+Simulated Network Delay: 0.001
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684115.175666
+GCS Current Timestamp: 1698684115.178269
+Simulated Network Delay: 0.001
+20.4716560496	13.4473956021	70
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684115.676872
+GCS Current Timestamp: 1698684115.679179
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684116.177969
+GCS Current Timestamp: 1698684116.180737
+Simulated Network Delay: 0.0
+20.4605240994	13.4362636528	69
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684116.679297
+GCS Current Timestamp: 1698684116.680961
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684117.180573
+GCS Current Timestamp: 1698684117.186518
+Simulated Network Delay: 0.001
+20.4493921501	13.4362636528	69
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684117.681879
+GCS Current Timestamp: 1698684117.683602
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684118.183036
+GCS Current Timestamp: 1698684118.184844
+Simulated Network Delay: 0.0
+20.4605240994	13.4362636528	69
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684118.684063
+GCS Current Timestamp: 1698684118.692611
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684119.185414
+GCS Current Timestamp: 1698684119.194182
+Simulated Network Delay: 0.0
+20.4605240994	13.4473956021	69
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684119.686393
+GCS Current Timestamp: 1698684119.688841
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684120.187316
+GCS Current Timestamp: 1698684120.1923
+Simulated Network Delay: 0.0
+20.4716560496	13.4362636528	69
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684120.688806
+GCS Current Timestamp: 1698684120.693495
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684121.190154
+GCS Current Timestamp: 1698684121.198532
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684121.691119
+GCS Current Timestamp: 1698684121.694596
+Simulated Network Delay: 0.0
+20.4827879997	13.4139997509	68
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684122.191929
+GCS Current Timestamp: 1698684122.194946
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684122.693449
+GCS Current Timestamp: 1698684122.695427
+Simulated Network Delay: 0.0
+20.4939199498	13.4139997509	68
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684123.194809
+GCS Current Timestamp: 1698684123.200884
+Simulated Network Delay: 0.001
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684123.696296
+GCS Current Timestamp: 1698684123.698993
+Simulated Network Delay: 0.0
+20.4939199498	13.3917358523	68
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684124.197498
+GCS Current Timestamp: 1698684124.199859
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS ERROR:autopilot:DISARMING MOTORS
+Send Timestamp: 1698684124.698891
+GCS Current Timestamp: 1698684124.706669
+Simulated Network Delay: 0.0
+20.4939199498	13.4028678016	68
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684125.199398
+GCS Current Timestamp: 1698684125.202575
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684125.701036
+GCS Current Timestamp: 1698684125.704757
+Simulated Network Delay: 0.0
+20.4716560496	13.4139997509	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684126.202565
+GCS Current Timestamp: 1698684126.206126
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684126.703695
+GCS Current Timestamp: 1698684126.7059
+Simulated Network Delay: 0.0
+20.4605240994	13.4473956021	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684127.204955
+GCS Current Timestamp: 1698684127.208591
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684127.706335
+GCS Current Timestamp: 1698684127.709905
+Simulated Network Delay: 0.0
+20.4716560496	13.4362636528	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684128.207852
+GCS Current Timestamp: 1698684128.210413
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684128.709094
+GCS Current Timestamp: 1698684128.72081
+Simulated Network Delay: 0.0
+20.4827879997	13.4251317003	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684129.210369
+GCS Current Timestamp: 1698684129.213566
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684129.711566
+GCS Current Timestamp: 1698684129.715937
+Simulated Network Delay: 0.0
+20.5941074994	13.5698470512	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684130.212476
+GCS Current Timestamp: 1698684130.215143
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684130.71405
+GCS Current Timestamp: 1698684130.715704
+Simulated Network Delay: 0.0
+20.6052394495	13.5698470512	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684131.215305
+GCS Current Timestamp: 1698684131.217067
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684131.7167
+GCS Current Timestamp: 1698684131.720218
+Simulated Network Delay: 0.0
+20.6052394495	13.5698470512	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684132.218041
+GCS Current Timestamp: 1698684132.219624
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684132.719005
+GCS Current Timestamp: 1698684132.7205
+Simulated Network Delay: 0.0
+20.6052394495	13.5698470512	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684133.219873
+GCS Current Timestamp: 1698684133.222376
+Simulated Network Delay: 0.001
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684133.720816
+GCS Current Timestamp: 1698684133.723284
+Simulated Network Delay: 0.0
+20.6052394495	13.5698470512	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684134.222162
+GCS Current Timestamp: 1698684134.228569
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684134.723686
+GCS Current Timestamp: 1698684134.726724
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684135.224923
+GCS Current Timestamp: 1698684135.228491
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684135.726011
+GCS Current Timestamp: 1698684135.728485
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684136.227095
+GCS Current Timestamp: 1698684136.229841
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684136.728384
+GCS Current Timestamp: 1698684136.730523
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684137.229942
+GCS Current Timestamp: 1698684137.232139
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684137.731127
+GCS Current Timestamp: 1698684137.734145
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684138.232117
+GCS Current Timestamp: 1698684138.2341
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684138.733268
+GCS Current Timestamp: 1698684138.735685
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684139.234287
+GCS Current Timestamp: 1698684139.236385
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684139.735856
+GCS Current Timestamp: 1698684139.737723
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684140.237234
+GCS Current Timestamp: 1698684140.242763
+Simulated Network Delay: 0.001
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684140.738091
+GCS Current Timestamp: 1698684140.74026
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684141.23904
+GCS Current Timestamp: 1698684141.241596
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684141.740612
+GCS Current Timestamp: 1698684141.742232
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684142.241767
+GCS Current Timestamp: 1698684142.244127
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684142.742843
+GCS Current Timestamp: 1698684142.74527
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684143.244266
+GCS Current Timestamp: 1698684143.249917
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684143.745495
+GCS Current Timestamp: 1698684143.748194
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684144.246689
+GCS Current Timestamp: 1698684144.248579
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684144.748079
+GCS Current Timestamp: 1698684144.751089
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684145.24934
+GCS Current Timestamp: 1698684145.252305
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684145.750385
+GCS Current Timestamp: 1698684145.753067
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684146.251665
+GCS Current Timestamp: 1698684146.253268
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684146.752715
+GCS Current Timestamp: 1698684146.754273
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684147.25387
+GCS Current Timestamp: 1698684147.257554
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684147.755248
+GCS Current Timestamp: 1698684147.757657
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684148.256566
+GCS Current Timestamp: 1698684148.258612
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684148.757989
+GCS Current Timestamp: 1698684148.760686
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684149.25904
+GCS Current Timestamp: 1698684149.262887
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684149.760498
+GCS Current Timestamp: 1698684149.762052
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684150.26166
+GCS Current Timestamp: 1698684150.26489
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684150.762759
+GCS Current Timestamp: 1698684150.767069
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684151.264089
+GCS Current Timestamp: 1698684151.267361
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684151.765475
+GCS Current Timestamp: 1698684151.769922
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684152.267212
+GCS Current Timestamp: 1698684152.270669
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684152.768535
+GCS Current Timestamp: 1698684152.771081
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684153.26997
+GCS Current Timestamp: 1698684153.272992
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684153.771508
+GCS Current Timestamp: 1698684153.774355
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684154.273203
+GCS Current Timestamp: 1698684154.276828
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684154.774736
+GCS Current Timestamp: 1698684154.779156
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684155.276281
+GCS Current Timestamp: 1698684155.279501
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684155.777707
+GCS Current Timestamp: 1698684155.780685
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684156.279205
+GCS Current Timestamp: 1698684156.283652
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684156.779827
+GCS Current Timestamp: 1698684156.78271
+Simulated Network Delay: 0.001
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684157.281065
+GCS Current Timestamp: 1698684157.28312
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684157.782453
+GCS Current Timestamp: 1698684157.785253
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684158.283797
+GCS Current Timestamp: 1698684158.286516
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684158.785053
+GCS Current Timestamp: 1698684158.787367
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684159.28651
+GCS Current Timestamp: 1698684159.288173
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684159.787791
+GCS Current Timestamp: 1698684159.789402
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684160.288889
+GCS Current Timestamp: 1698684160.291137
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684160.79023
+GCS Current Timestamp: 1698684160.792677
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684161.291269
+GCS Current Timestamp: 1698684161.293203
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684161.792709
+GCS Current Timestamp: 1698684161.794741
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684162.294032
+GCS Current Timestamp: 1698684162.295633
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684162.795316
+GCS Current Timestamp: 1698684162.798344
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684163.29662
+GCS Current Timestamp: 1698684163.298339
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684163.797892
+GCS Current Timestamp: 1698684163.799938
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684164.299291
+GCS Current Timestamp: 1698684164.302349
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684164.800823
+GCS Current Timestamp: 1698684164.803039
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684165.301871
+GCS Current Timestamp: 1698684165.303951
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684165.803348
+GCS Current Timestamp: 1698684165.80546
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684166.304403
+GCS Current Timestamp: 1698684166.30641
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684166.805832
+GCS Current Timestamp: 1698684166.807449
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684167.306886
+GCS Current Timestamp: 1698684167.312085
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684167.807963
+GCS Current Timestamp: 1698684167.810139
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684168.309841
+GCS Current Timestamp: 1698684168.31221
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684168.811383
+GCS Current Timestamp: 1698684168.814146
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684169.312269
+GCS Current Timestamp: 1698684169.314718
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684169.813021
+GCS Current Timestamp: 1698684169.815696
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684170.313721
+GCS Current Timestamp: 1698684170.31587
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684170.814713
+GCS Current Timestamp: 1698684170.817646
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684171.315836
+GCS Current Timestamp: 1698684171.317804
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684171.817038
+GCS Current Timestamp: 1698684171.819297
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684172.318445
+GCS Current Timestamp: 1698684172.320418
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684172.819935
+GCS Current Timestamp: 1698684172.822348
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684173.321169
+GCS Current Timestamp: 1698684173.323188
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684173.822884
+GCS Current Timestamp: 1698684173.825334
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684174.324059
+GCS Current Timestamp: 1698684174.327661
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684174.8256
+GCS Current Timestamp: 1698684174.826993
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684175.326949
+GCS Current Timestamp: 1698684175.329404
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684175.827952
+GCS Current Timestamp: 1698684175.830594
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684176.328866
+GCS Current Timestamp: 1698684176.332023
+Simulated Network Delay: 0.001
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684176.830346
+GCS Current Timestamp: 1698684176.832721
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684177.331611
+GCS Current Timestamp: 1698684177.33449
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684177.83308
+GCS Current Timestamp: 1698684177.835718
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684178.334647
+GCS Current Timestamp: 1698684178.339009
+Simulated Network Delay: 0.001
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684178.835889
+GCS Current Timestamp: 1698684178.839292
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684179.336939
+GCS Current Timestamp: 1698684179.339429
+Simulated Network Delay: 0.001
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684179.837785
+GCS Current Timestamp: 1698684179.839549
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684180.339299
+GCS Current Timestamp: 1698684180.342917
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684180.840431
+GCS Current Timestamp: 1698684180.842377
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684181.34139
+GCS Current Timestamp: 1698684181.343661
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684181.842965
+GCS Current Timestamp: 1698684181.845891
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684182.343896
+GCS Current Timestamp: 1698684182.34572
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684182.845472
+GCS Current Timestamp: 1698684182.847763
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684183.347066
+GCS Current Timestamp: 1698684183.349787
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684183.848732
+GCS Current Timestamp: 1698684183.852164
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684184.35035
+GCS Current Timestamp: 1698684184.352451
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684184.851692
+GCS Current Timestamp: 1698684184.855134
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684185.353098
+GCS Current Timestamp: 1698684185.355606
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684185.853942
+GCS Current Timestamp: 1698684185.859366
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684186.355272
+GCS Current Timestamp: 1698684186.361475
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684186.855801
+GCS Current Timestamp: 1698684186.860837
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684187.356808
+GCS Current Timestamp: 1698684187.359416
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684187.857517
+GCS Current Timestamp: 1698684187.860205
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684188.358936
+GCS Current Timestamp: 1698684188.361081
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684188.860099
+GCS Current Timestamp: 1698684188.861995
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684189.360992
+GCS Current Timestamp: 1698684189.373876
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684189.861887
+GCS Current Timestamp: 1698684189.863478
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684190.363196
+GCS Current Timestamp: 1698684190.365276
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684190.864191
+GCS Current Timestamp: 1698684190.867364
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684191.365344
+GCS Current Timestamp: 1698684191.368159
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684191.866408
+GCS Current Timestamp: 1698684191.869918
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684192.367946
+GCS Current Timestamp: 1698684192.372192
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684192.868901
+GCS Current Timestamp: 1698684192.871541
+Simulated Network Delay: 0.0
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684193.370167
+GCS Current Timestamp: 1698684193.374375
+Simulated Network Delay: 0.002
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684193.871372
+GCS Current Timestamp: 1698684193.873863
+Simulated Network Delay: 0.001
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684194.372823
+GCS Current Timestamp: 1698684194.375859
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684194.87411
+GCS Current Timestamp: 1698684194.876336
+Simulated Network Delay: 0.001
+>>>>>> LENGTH OF LIST FROM GCS: 7
+GCS Send Timestamp: 1698684195.375201
+GCS Current Timestamp: 1698684195.376757
+Simulated Network Delay: 0.0
+20.6052394495	13.5587151018	67

@@ -39,7 +39,7 @@ if __name__ == "__main__":
                         type=int, default=1)
     parser.add_argument("-p", "--path", help="Path of the network simulator (NS-3)",
                         #type=str, default="/home/sbaidya/flynetsim-curr-git/UavNetSim/NetSim/ns-3.27")
-                        type=str, default="~/FlyNetSim/NetSim/ns-allinone-3.27/ns-3.27")
+                        type=str, default="/home/ptoloudis/FlyNetSim/NetSim/ns-allinone-3.27/ns-3.27")
     parser.add_argument("-c", "--control", help="Type of Control (Default: 0): 0 - Individual, 1 - Group",
                         type=int, choices=[0, 1], default=0)
     parser.add_argument("-l", "--layout", help="Layout for multiple UAVs (Default: 0): 0 - Linear, 1 - Grid",
@@ -78,7 +78,7 @@ if __name__ == "__main__":
         xml_path = home_path + args.path[1:]
     else:
         xml_path = args.path
-        
+ 
     if xml_path.endswith('/'):
         tree.write(xml_path + "config.xml")
     else:
@@ -91,8 +91,8 @@ if __name__ == "__main__":
     gcs_obj = None
 
     time.sleep(0.1)
-    # ns_cmd = "xterm -T Network_Simulator -e 'cd " + args.path + " && ./waf --run=\"uav-net-sim\"'"
-    ns_cmd = "xterm -T Network_Simulator -e 'cd " + args.path + " && ./waf --run=\"uav-net-sim\" |& tee output.txt'"
+    # ns_cmd = "xterm -hold -T Network_Simulator -e 'cd " + args.path + " && ./waf --run=\"uav-net-sim\"'"
+    ns_cmd = "xterm -T Network_Simulator -e 'cd " + args.path + " && ./waf --run=\"uav-net-sim\" |& tee NetSimOut.txt'"
     print("[MAIN] Starting the network simulator: " + ns_cmd)
     proc_instance.append(subprocess.Popen(ns_cmd, shell=True))
     time.sleep(3)
@@ -104,7 +104,7 @@ if __name__ == "__main__":
     uav_zmq_tel_socket = create_zmq("PUB", uav_zmq_tel_connection_str, verbose=True)
 
     for i in range(args.instance):
-        p_sitl = subprocess.Popen("xterm -T SITL_" + str(i) +
+        p_sitl = subprocess.Popen("xterm -hold -T SITL_" + str(i) +
                                   " -e dronekit-sitl copter --instance " + str(i), shell=True)
         proc_instance.append(p_sitl)
         time.sleep(2)
