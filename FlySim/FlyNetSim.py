@@ -78,6 +78,7 @@ if __name__ == "__main__":
         xml_path = home_path + args.path[1:]
     else:
         xml_path = args.path
+        
     if xml_path.endswith('/'):
         tree.write(xml_path + "config.xml")
     else:
@@ -90,7 +91,8 @@ if __name__ == "__main__":
     gcs_obj = None
 
     time.sleep(0.1)
-    ns_cmd = "xterm -T Network_Simulator -e 'cd " + args.path + " && ./waf --run=\"uav-net-sim\"'"
+    # ns_cmd = "xterm -T Network_Simulator -e 'cd " + args.path + " && ./waf --run=\"uav-net-sim\"'"
+    ns_cmd = "xterm -T Network_Simulator -e 'cd " + args.path + " && ./waf --run=\"uav-net-sim\" |& tee output.txt'"
     print("[MAIN] Starting the network simulator: " + ns_cmd)
     proc_instance.append(subprocess.Popen(ns_cmd, shell=True))
     time.sleep(3)

@@ -512,6 +512,7 @@ int main (int argc, char *argv[])
   InternetStackHelper internet;
   internet.Install (remoteHostContainer);
 
+  /******************* LTE Network ************************/
   /*********************** INTERNET stack in EPC *********************************/
   PointToPointHelper p2ph;
   p2ph.SetDeviceAttribute ("DataRate", DataRateValue (DataRate ("100Gb/s")));
@@ -604,7 +605,7 @@ int main (int argc, char *argv[])
   /********************** Finished LTE Networks ********************/
 
 
-
+  /******************* WiFI Network ************************/
   /******************** Define WiFi stack *****************/
   NodeContainer nodesWifiAp;
   nodesWifiAp.Create (1);
@@ -679,7 +680,7 @@ int main (int argc, char *argv[])
     }
   interfacesWifiCong.Add(ipv4Wifi.Assign (devicesWifiCong));
    
-  /******************************************************************/
+  /************** Finished WiFi Network ******************************/
 
 
 
@@ -691,46 +692,46 @@ int main (int argc, char *argv[])
   if(network_type == 0)
   {
   /************** Uplink Data transfer for Telemetry *************/
-  for (uint32_t i = 0; i < uavNode.GetN(); ++i){
-    Ptr<Node> remoteWifiHost = nodesWifiAp.Get (0);
-    Ipv4Address remoteWifiHostAddr = interfacesWifiAp.GetAddress (0);
-    uint16_t sinkport = 100+i;
-    Address sinkAddress(InetSocketAddress (remoteWifiHostAddr, sinkport));
-    ApplicationContainer sinkApp;
-    PacketSinkHelper packetSinkHelper("ns3::TcpSocketFactory", InetSocketAddress(Ipv4Address::GetAny(), sinkport));
-    sinkApp = packetSinkHelper.Install(remoteWifiHost);
-    sinkApp.Start(Seconds(0.0));
+    for (uint32_t i = 0; i < uavNode.GetN(); ++i){
+      Ptr<Node> remoteWifiHost = nodesWifiAp.Get (0);
+      Ipv4Address remoteWifiHostAddr = interfacesWifiAp.GetAddress (0);
+      uint16_t sinkport = 100+i;
+      Address sinkAddress(InetSocketAddress (remoteWifiHostAddr, sinkport));
+      ApplicationContainer sinkApp;
+      PacketSinkHelper packetSinkHelper("ns3::TcpSocketFactory", InetSocketAddress(Ipv4Address::GetAny(), sinkport));
+      sinkApp = packetSinkHelper.Install(remoteWifiHost);
+      sinkApp.Start(Seconds(0.0));
 
-    Ptr<Socket> ns3TcpSocket = Socket::CreateSocket(uavNode.Get(i), TcpSocketFactory::GetTypeId());
-    Ptr<MyApp> app = CreateObject<MyApp>();
-    app->Setup(ns3TcpSocket, sinkAddress, 1400, 50000, DataRate("1Mbps"), (2*i), 1);
-    uavNode.Get(i)->AddApplication(app);
-    app->SetStartTime(Seconds(1.0));
-    std::cout << "APP : " << app << std::endl; 
-    uavApp = app;
-    appVectTel.push_back(app);
+      Ptr<Socket> ns3TcpSocket = Socket::CreateSocket(uavNode.Get(i), TcpSocketFactory::GetTypeId());
+      Ptr<MyApp> app = CreateObject<MyApp>();
+      app->Setup(ns3TcpSocket, sinkAddress, 1400, 50000, DataRate("1Mbps"), (2*i), 1);
+      uavNode.Get(i)->AddApplication(app);
+      app->SetStartTime(Seconds(1.0));
+      std::cout << "APP : " << app << std::endl; 
+      uavApp = app;
+      appVectTel.push_back(app);
+    }
   }
- }
- else
- {
-  /************** LTE Uplink Data transfer for Telemetry *************/
-  for (uint32_t i = 0; i < uavNode.GetN(); ++i){
-    uint16_t sinkport = 110+i;
-    Address sinkAddress(InetSocketAddress (remoteHostAddr, sinkport));
-    ApplicationContainer sinkApp;
-    PacketSinkHelper packetSinkHelper("ns3::TcpSocketFactory", InetSocketAddress(Ipv4Address::GetAny(), sinkport));
-    sinkApp = packetSinkHelper.Install(remoteHost);
-    sinkApp.Start(Seconds(0.1));
+  else
+  {
+    /************** LTE Uplink Data transfer for Telemetry *************/
+    for (uint32_t i = 0; i < uavNode.GetN(); ++i){
+      uint16_t sinkport = 110+i;
+      Address sinkAddress(InetSocketAddress (remoteHostAddr, sinkport));
+      ApplicationContainer sinkApp;
+      PacketSinkHelper packetSinkHelper("ns3::TcpSocketFactory", InetSocketAddress(Ipv4Address::GetAny(), sinkport));
+      sinkApp = packetSinkHelper.Install(remoteHost);
+      sinkApp.Start(Seconds(0.1));
 
-    Ptr<Socket> ns3TcpSocket = Socket::CreateSocket(uavNode.Get(i), TcpSocketFactory::GetTypeId());
-    Ptr<MyApp> app = CreateObject<MyApp>();
-    app->Setup(ns3TcpSocket, sinkAddress, 1400, 50000, DataRate("1Mbps"), (2*i), 1);
-    uavNode.Get(i)->AddApplication(app);
-    app->SetStartTime(Seconds(1.0));
-    uavApp = app;
-    appVectTel.push_back(app);
+      Ptr<Socket> ns3TcpSocket = Socket::CreateSocket(uavNode.Get(i), TcpSocketFactory::GetTypeId());
+      Ptr<MyApp> app = CreateObject<MyApp>();
+      app->Setup(ns3TcpSocket, sinkAddress, 1400, 50000, DataRate("1Mbps"), (2*i), 1);
+      uavNode.Get(i)->AddApplication(app);
+      app->SetStartTime(Seconds(1.0));
+      uavApp = app;
+      appVectTel.push_back(app);
 
-  }
+    }
 
  }
  

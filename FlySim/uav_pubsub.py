@@ -42,12 +42,6 @@ class UAV:
         self.tel_timestamp = time.time()
 
         # Setting up ZMQ related parameters
-        # self.zmq_tel_port = tel_port
-        # self.zmq_control_port = control_port
-        # self.zmq_tel_connection_str = "tcp://127.0.0.1:" + str(self.zmq_tel_port)
-        # self.zmq_control_connection_str = "tcp://127.0.0.1:" + str(self.zmq_control_port)
-        # self.zmq_tel_socket = self.create_zmq("PUB", self.zmq_tel_connection_str, "", verbose=self.verbose)
-        # self.zmq_control_socket = self.create_zmq("SUB", self.zmq_control_connection_str, verbose=self.verbose)
         self.zmq_tel_socket = tel_socket
         self.zmq_control_socket = control_socket
 
@@ -55,15 +49,11 @@ class UAV:
         self.sitl_port = sitl_port
         self.sitl_connection_str = "tcp:127.0.0.1:" + str(self.sitl_port)
         self.vehicle = None
-        #self.vehicle = self.connect_sitl(self.sitl_connection_str, self.verbose)
-        #self.condition_yaw(90)
-
-
 
         # Thread for sending sensor (NOT IMPLEMENTED FOR NOW)
-        thread_tel = threading.Thread(target=self.send_sensor_data)
-        thread_tel.daemon = True
-        thread_tel.start()
+        # thread_tel = threading.Thread(target=self.send_sensor_data)
+        # thread_tel.daemon = True
+        # thread_tel.start()
 
         self.get_data(self.zmq_control_socket, verbose)
 
