@@ -519,7 +519,8 @@ int main (int argc, char *argv[])
   p2ph.SetDeviceAttribute ("Mtu", UintegerValue (1500));
   p2ph.SetChannelAttribute ("Delay", TimeValue (Seconds (0.00001)));
   NetDeviceContainer internetDevices = p2ph.Install (pgw, remoteHost);
-  p2ph.EnablePcapAll("uav-net-sim"); // p2p enable pcap
+  // p2ph.EnablePcapAll("uav-net-sim"); // p2p enable pcap
+
   Ipv4AddressHelper ipv4h;
   ipv4h.SetBase ("1.0.0.0", "255.0.0.0");
   Ipv4InterfaceContainer internetIpIfaces = ipv4h.Assign (internetDevices);
@@ -621,7 +622,6 @@ int main (int argc, char *argv[])
   wifi.SetStandard(WIFI_PHY_STANDARD_80211g);
   WifiMacHelper wifiMac;
   wifi.SetRemoteStationManager ("ns3::ArfWifiManager");
-  
 
   NetDeviceContainer devicesWifiAp;
   NetDeviceContainer devicesWifiSta;
@@ -667,24 +667,21 @@ int main (int argc, char *argv[])
   /************** Define IP stack for WiFi AP *************/
   InternetStackHelper internetWifi;
   internetWifi.Install (nodesWifiAp);
-  internetWifi.EnablePcapAll("uav-net-sim");
 
   Ipv4AddressHelper ipv4Wifi;
   Ipv4InterfaceContainer interfacesWifiAp;
   Ipv4InterfaceContainer interfacesWifiSta;
   Ipv4InterfaceContainer interfacesWifiCong;
-    char ipString[30] = {'\0'};
-    sprintf(ipString, "10.10.1.0");
-    ipv4Wifi.SetBase (ipString, "255.255.255.0");
-    interfacesWifiAp.Add(ipv4Wifi.Assign (devicesWifiAp.Get(0)));
-    for (uint32_t i = 0; i < uavNode.GetN(); ++i){
-      interfacesWifiSta.Add(ipv4Wifi.Assign (devicesWifiSta.Get(i)));
-    }
+  char ipString[30] = {'\0'};
+  sprintf(ipString, "10.10.1.0");
+  ipv4Wifi.SetBase (ipString, "255.255.255.0");
+  interfacesWifiAp.Add(ipv4Wifi.Assign (devicesWifiAp.Get(0)));
+  for (uint32_t i = 0; i < uavNode.GetN(); ++i){
+    interfacesWifiSta.Add(ipv4Wifi.Assign (devicesWifiSta.Get(i)));
+  }
   interfacesWifiCong.Add(ipv4Wifi.Assign (devicesWifiCong));
    
   /************** Finished WiFi Network ******************************/
-
-
 
 
   /************ Write Application *****************/
