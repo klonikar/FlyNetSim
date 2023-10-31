@@ -621,6 +621,7 @@ int main (int argc, char *argv[])
   wifi.SetStandard(WIFI_PHY_STANDARD_80211g);
   WifiMacHelper wifiMac;
   wifi.SetRemoteStationManager ("ns3::ArfWifiManager");
+  
 
   NetDeviceContainer devicesWifiAp;
   NetDeviceContainer devicesWifiSta;
@@ -666,7 +667,7 @@ int main (int argc, char *argv[])
   /************** Define IP stack for WiFi AP *************/
   InternetStackHelper internetWifi;
   internetWifi.Install (nodesWifiAp);
-  internetWifi.EnablePcapAll("uav-net-sim")
+  internetWifi.EnablePcapAll("uav-net-sim");
 
   Ipv4AddressHelper ipv4Wifi;
   Ipv4InterfaceContainer interfacesWifiAp;
