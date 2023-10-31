@@ -519,6 +519,7 @@ int main (int argc, char *argv[])
   p2ph.SetDeviceAttribute ("Mtu", UintegerValue (1500));
   p2ph.SetChannelAttribute ("Delay", TimeValue (Seconds (0.00001)));
   NetDeviceContainer internetDevices = p2ph.Install (pgw, remoteHost);
+  p2ph.EnablePcapAll("uav-net-sim"); // p2p enable pcap
   Ipv4AddressHelper ipv4h;
   ipv4h.SetBase ("1.0.0.0", "255.0.0.0");
   Ipv4InterfaceContainer internetIpIfaces = ipv4h.Assign (internetDevices);
@@ -563,7 +564,6 @@ int main (int argc, char *argv[])
   {
     congueDevices.Add(lteHelper->InstallUeDevice (congNode.Get(u)));
   }
-
 
   /******************* INTERNET Stack in LTE ***********************/
   Ipv4InterfaceContainer ueIpIfaceList;
@@ -666,6 +666,7 @@ int main (int argc, char *argv[])
   /************** Define IP stack for WiFi AP *************/
   InternetStackHelper internetWifi;
   internetWifi.Install (nodesWifiAp);
+  internetWifi.EnablePcapAll("uav-net-sim")
 
   Ipv4AddressHelper ipv4Wifi;
   Ipv4InterfaceContainer interfacesWifiAp;

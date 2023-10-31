@@ -73,7 +73,7 @@ To improve the readability of the code, the developer can add comments to explai
 
 
 WiFi:
-Set in the default channel.
+Set in the default channel. WIFI_PHY_STANDARD_80211g
 
 LTE:
 
