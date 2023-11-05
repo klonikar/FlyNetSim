@@ -27,57 +27,25 @@ If the message is not a sensor data message, the function checks if it contains 
 Finally, the function cleans up the ZeroMQ publisher and subscriber sockets and returns 0.
 Overall, this code is responsible for receiving telemetry data from UAVs and forwarding it to a ground control station application. It uses ZeroMQ for message passing and NS-3 for scheduling. The code is well-organized and easy to read, with clear variable names and comments. However, it could be improved by adding error handling for the ZeroMQ sockets and by using a more efficient data structure than a vector for storing the MyApp objects.
 
-
-The main code:
-This code appears to be part of a C++ program that sets up a simulation environment using the NS-3 network simulator framework. The program simulates communication between Unmanned Aerial Vehicles (UAVs) and a ground control station (GCS) over different network technologies (Wi-Fi and LTE). Here's an explanation of the code:
-
-1. The code starts with the `main` function, which is the entry point of the program. It takes command-line arguments `argc` and `argv` but doesn't use them.
-2. Several variables are defined to store simulation parameters, such as the number of UAVs (`nUAV`), the type of network (`network_type`), the number of contending nodes (`nCong`), the input congestion rate (`inputCongRate`), and packet size (`congPktSize`). The `congRate` variable stores a string representation of the congestion rate, although the actual rate is later converted from `inputCongRate`.
-3. Configuration parameters for the NS-3 simulator are set using the `GlobalValue::Bind` and `Config::SetDefault` functions. These parameters specify the simulator implementation type, TCP socket segment size, and other default settings.
-4. The code binds ZeroMQ publisher sockets (`publisherCm` and `publisherTm`) to specific IP addresses and ports for communication.
-5. Input parameters are loaded from an XML file using a custom `MyInput` class. These parameters include the number of UAVs, network type, number of contending nodes, traffic rate, and traffic size.
-6. Information from the XML file is printed to the console for reference.
-7. Depending on the `network_type` (0 for Wi-Fi, 1 for LTE), the code sets up either a Wi-Fi or LTE network environment.
-   - For Wi-Fi, it creates nodes for UAVs and contending traffic nodes and sets their positions using mobility models.
-   - For LTE, it configures LTE network parameters, creates eNodeB nodes, and sets up LTE devices for UAVs and contending traffic nodes.
-8. The code configures the physical layer, propagation models, and other parameters for both Wi-Fi and LTE networks.
-9. It sets up data transfer applications for telemetry and control based on the chosen network technology. This involves creating TCP sockets, defining the communication endpoints, and starting data transfer.
-10. If the network type is Wi-Fi, it also sets up applications for sending congestion traffic with configurable rates.
-11. Separate threads are created for receiving telemetry and control commands using the `pthread_create` function.
-12. The program connects to a ZeroMQ subscriber socket and subscribes to incoming messages.
-13. The simulation environment is scheduled to run for a specified duration.
-14. Several functions are scheduled to run at specific times during the simulation, including `RcvPktTrace`.
-15. The simulation is started using `Simulator::Run`, and when it's done, the results are cleaned up using `Simulator::Destroy`.
-The code primarily focuses on configuring the simulation environment, setting up communication between UAVs and the GCS, and managing telemetry and control traffic. It is designed for network simulation purposes and makes use of the NS-3 framework for network modeling and simulation.
-
-
-GitHub Copilot
+the main function:
 This code is written in C++ and is part of a UAV network simulator. The code initializes various parameters for the simulation, such as the number of UAVs, the type of network, the number of contending nodes, and the traffic rate of each contending node. These parameters are loaded from an XML file using a custom class called MyInput. The code then prints out the values of these parameters to the console.
 The code then creates the network topology by defining the physical layer of the network. It creates two node containers, one for the UAVs and one for the contending nodes. It sets the position and mobility of the UAVs and contending nodes using different mobility models. It then installs the IP stack on all the nodes.
 The code then configures the default LTE parameters and creates the LTE network. It creates a single remote host and installs the internet stack on it. It also creates the SGW/PGW node and installs the internet stack on it. It creates the eNodeB node and sets its position and mobility. It then installs the scheduler, propagation, and fading models for the LTE network.
 The code then creates the devices for the LTE network and assigns IP addresses to the UE devices. It sets the default gateway for the UE devices and attaches them to the eNodeB device. It also activates the dedicated EPS bearer for the UE devices.
 Finally, the code creates the devices for the contending nodes and assigns IP addresses to them. It sets the default gateway for the contending nodes and attaches them to the eNodeB device. It also activates the dedicated EPS bearer for the contending nodes.
-To improve the readability of the code, the author could consider breaking down the code into smaller functions and using more descriptive variable names. Additionally, the author could add comments to explain the purpose of each section of the code. To improve the performance of the code, the author could consider optimizing the mobility models used for the UAVs and contending nodes.
-
-This code is written in C++ and is part of a UAV network simulator. The code defines the WiFi stack for the simulation. It creates a single access point (AP) node and sets up the physical layer of the WiFi network using the YansWifiPhyHelper and YansWifiChannelHelper classes. It then creates and configures the MAC layer of the WiFi network using the WifiHelper and WifiMacHelper classes. It sets the standard for the WiFi network to 802.11g and sets the remote station manager to "ns3::ArfWifiManager".
+The code defines the WiFi stack for the simulation. It creates a single access point (AP) node and sets up the physical layer of the WiFi network using the YansWifiPhyHelper and YansWifiChannelHelper classes. It then creates and configures the MAC layer of the WiFi network using the WifiHelper and WifiMacHelper classes. It sets the standard for the WiFi network to 802.11g and sets the remote station manager to "ns3::ArfWifiManager".
 The code then creates three NetDeviceContainers for the WiFi network: one for the AP, one for the UAVs, and one for the contending nodes. It sets the SSID for the WiFi network to "AP_1" and creates an AP WiFi MAC using the ApWifiMac class. It installs the AP WiFi MAC on the AP node and adds the resulting NetDevice to the devicesWifiAp container.
 The code then creates a WiFi MAC for each UAV and contending node using the StaWifiMac class. It installs the WiFi MACs on the corresponding nodes and adds the resulting NetDevices to the devicesWifiSta and devicesWifiCong containers, respectively.
 The code prints out the MAC addresses of the AP and the first UAV to the console. It also defines the initial position and mobility of the AP using the ConstantPositionMobilityModel and ListPositionAllocator classes.
 Finally, the code defines the IP stack for the WiFi network using the InternetStackHelper class. It assigns IP addresses to the devices in the WiFi network using the Ipv4AddressHelper class and adds the resulting interfaces to the interfacesWifiAp, interfacesWifiSta, and interfacesWifiCong containers.
-To improve the readability of the code, the author could consider breaking down the code into smaller functions and using more descriptive variable names. Additionally, the author could add comments to explain the purpose of each section of the code. To improve the performance of the code, the author could consider optimizing the mobility models used for the AP and the UAVs.
-
-This code is written in C++ and is used for simulating a UAV network. The code is divided into different sections, each of which is responsible for a specific task. The first section is responsible for setting up the application. It checks the network type and sets up the uplink data transfer for telemetry accordingly. If the network type is 0, it sets up the uplink data transfer for telemetry using WiFi. If the network type is 1, it sets up the uplink data transfer for telemetry using LTE. It then sets up the downlink data transfer for control commands. If the network type is 0, it sets up the downlink data transfer for control commands using WiFi. If the network type is 1, it sets up the downlink data transfer for control commands using LTE. Finally, it sets up the uplink data transfer for congestion.
+The first section is responsible for setting up the application. It checks the network type and sets up the uplink data transfer for telemetry accordingly. If the network type is 0, it sets up the uplink data transfer for telemetry using WiFi. If the network type is 1, it sets up the uplink data transfer for telemetry using LTE. It then sets up the downlink data transfer for control commands. If the network type is 0, it sets up the downlink data transfer for control commands using WiFi. If the network type is 1, it sets up the downlink data transfer for control commands using LTE. Finally, it sets up the uplink data transfer for congestion.
 The second section creates pub sub threads. It creates two threads, one for receiving commands and the other for receiving telemetry. It then connects to a subscriber and sets the subscriber options.
 The third section prints the current simulation time and schedules the receive packet trace function. It then stops the simulator and destroys it.
-To improve the readability of the code, the developer can add comments to explain the purpose of each section and each line of code. Additionally, the developer can use meaningful variable names to make the code more understandable. To improve the performance of the code, the developer can optimize the data transfer rates and packet sizes to reduce the network load.
-
 
 WiFi:
 Set in the default channel. WIFI_PHY_STANDARD_80211g
 
 LTE:
 
-
 Both:
 Set the IP address for the devices and 1Mbps in to the data rate.
-

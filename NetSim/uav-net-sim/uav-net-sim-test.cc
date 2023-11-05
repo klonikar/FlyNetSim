@@ -374,8 +374,6 @@ void* rcvTelemetry(void *arg)
         free(curY);
      
     }
-    free(loc_pattern);
-    // position update done for uav_index
 
     if(strncmp(loc_pattern, "DISTANCE***", 11) != 0)  // The UAV message is a normal Telemetry and not a location update
     {
@@ -393,6 +391,10 @@ void* rcvTelemetry(void *arg)
       ns3::Simulator::Schedule(tNext, &MyApp::SendMsg, app, send_socket, string);
       //ns3::Simulator::Schedule(tNext, &MyApp::SendMsg, uavApp, send_socket, string);
     }
+
+    free(loc_pattern);
+    // position update done for uav_index
+
     zmq_msg_close (&message);
 
     free(sTime);
@@ -710,6 +712,57 @@ int main (int argc, char *argv[])
       uavApp = app;
       appVectTel.push_back(app);
     }
+
+    /************** Downlink Data transfer for Control commands *************/
+    for (uint32_t i = 0; i < uavNode.GetN(); ++i){
+      Ptr<Node> remoteWifiHost = uavNode.Get (i);
+      Ipv4Address remoteWifiHostAddr = interfacesWifiSta.GetAddress (i);
+      uint16_t sinkport = 1000+i;
+      Address sinkAddress(InetSocketAddress (remoteWifiHostAddr, sinkport));
+      ApplicationContainer sinkApp;
+      PacketSinkHelper packetSinkHelper("ns3::TcpSocketFactory", InetSocketAddress(Ipv4Address::GetAny(), sinkport));
+      sinkApp = packetSinkHelper.Install(remoteWifiHost);
+      sinkApp.Start(Seconds(0.0));
+
+      Ptr<Socket> ns3TcpSocket = Socket::CreateSocket(nodesWifiAp.Get(0), TcpSocketFactory::GetTypeId());
+      Ptr<MyApp> app = CreateObject<MyApp>();
+      app->Setup(ns3TcpSocket, sinkAddress, 1400, 50000, DataRate("1Mbps"), (2*i), 0);
+      nodesWifiAp.Get(0)->AddApplication(app);
+      app->SetStartTime(Seconds(1.0));
+      std::cout << "APP : " << app << std::endl; 
+      gcsApp = app;
+      appVectCom.push_back(app);
+    }
+
+    /************** WiFi Uplink Data transfer for Congestion *************/
+    if (DataRate(congRate) > 0)
+    {
+      for (uint32_t i = 0; i < congNode.GetN(); ++i){
+        Ptr<Node> remoteHost = nodesWifiAp.Get (0);
+        Ipv4Address remoteHostAddr = interfacesWifiAp.GetAddress (0);
+        uint16_t sinkport = 1234+ i;
+        Address sinkAddress(InetSocketAddress (remoteHostAddr, sinkport));
+        ApplicationContainer sinkApp;
+        PacketSinkHelper packetSinkHelper("ns3::TcpSocketFactory", InetSocketAddress(Ipv4Address::GetAny(), sinkport));
+        sinkApp = packetSinkHelper.Install(remoteHost);
+        sinkApp.Start(Seconds(0.1));
+
+        Ptr<Socket> ns3TcpSocket = Socket::CreateSocket(congNode.Get(i), TcpSocketFactory::GetTypeId());
+        Ptr<MyApp> app = CreateObject<MyApp>();
+        app->Setup(ns3TcpSocket, sinkAddress, congPktSize, 500000000, DataRate(congRate), (101+i), 1);
+        app->m_congId = i;
+        app->m_rate = inputCongRate;
+        congNode.Get(i)->AddApplication(app);
+        app->SetStartTime(Seconds(0.1));
+        std::cout << "Sending Congestion Traffic" <<std::endl;
+        app->SendPacket();
+      }
+    }
+    else
+    {
+      std::cout << " Congestion Traffic rate = 0" <<std::endl;
+    }
+
   }
   else
   {
@@ -732,14 +785,7 @@ int main (int argc, char *argv[])
 
     }
 
- }
- 
-
- 
-  if(network_type == 1)
-  {
-  /************** LTE Downlink Data transfer for Control *************/
-   for (uint32_t i = 0; i < uavNode.GetN(); ++i){
+    for (uint32_t i = 0; i < uavNode.GetN(); ++i){
     Ptr<Node> remoteLteHost = uavNode.Get (i);
     Ipv4Address remoteLteHostAddr = ueIpIfaceList.GetAddress (i);
     //Ipv4Address remoteHostAddrWifi = interfacesWifiSta.GetAddress (i);
@@ -760,94 +806,34 @@ int main (int argc, char *argv[])
     gcsApp = app;
     appVectCom.push_back(app);
     }
+    if (DataRate(congRate) > 0)
+    {
+    /************** LTE Uplink Data transfer for Congestion *************/
+      for (uint32_t i = 0; i < congNode.GetN(); ++i){
+        uint16_t sinkport = 500+i;
+        Address sinkAddress(InetSocketAddress (remoteHostAddr, sinkport));
+        ApplicationContainer sinkApp;
+        PacketSinkHelper packetSinkHelper("ns3::TcpSocketFactory", InetSocketAddress(Ipv4Address::GetAny(), sinkport));
+        sinkApp = packetSinkHelper.Install(remoteHost);
+        sinkApp.Start(Seconds(0.1));
+
+        Ptr<Socket> ns3TcpSocket = Socket::CreateSocket(congNode.Get(i), TcpSocketFactory::GetTypeId());
+        Ptr<MyApp> app = CreateObject<MyApp>();
+        app->Setup(ns3TcpSocket, sinkAddress, congPktSize, 500000000, DataRate(congRate), (101+i), 1);
+        app->m_congId = i;
+        app->m_rate = inputCongRate;
+        congNode.Get(i)->AddApplication(app);
+        app->SetStartTime(Seconds(0.1));
+        std::cout << "Sending Congestion Traffic" <<std::endl;
+        app->SendPacket();
+
+        }
+    }
+    else
+    {
+      std::cout << " Congestion Traffic rate = 0" <<std::endl;
+    }
   }
- else
- { 
-  /************** Downlink Data transfer for Control commands *************/
-  for (uint32_t i = 0; i < uavNode.GetN(); ++i){
-    Ptr<Node> remoteWifiHost = uavNode.Get (i);
-    Ipv4Address remoteWifiHostAddr = interfacesWifiSta.GetAddress (i);
-    uint16_t sinkport = 1000+i;
-    Address sinkAddress(InetSocketAddress (remoteWifiHostAddr, sinkport));
-    ApplicationContainer sinkApp;
-    PacketSinkHelper packetSinkHelper("ns3::TcpSocketFactory", InetSocketAddress(Ipv4Address::GetAny(), sinkport));
-    sinkApp = packetSinkHelper.Install(remoteWifiHost);
-    sinkApp.Start(Seconds(0.0));
-
-    Ptr<Socket> ns3TcpSocket = Socket::CreateSocket(nodesWifiAp.Get(0), TcpSocketFactory::GetTypeId());
-    Ptr<MyApp> app = CreateObject<MyApp>();
-    app->Setup(ns3TcpSocket, sinkAddress, 1400, 50000, DataRate("1Mbps"), (2*i), 0);
-    nodesWifiAp.Get(0)->AddApplication(app);
-    app->SetStartTime(Seconds(1.0));
-    std::cout << "APP : " << app << std::endl; 
-    gcsApp = app;
-    appVectCom.push_back(app);
-  }
- }
-
-
-
- if(network_type == 0)
- {
-   /************** WiFi Uplink Data transfer for Congestion *************/
-  if (DataRate(congRate) > 0)
-  {
-   for (uint32_t i = 0; i < congNode.GetN(); ++i){
-    Ptr<Node> remoteHost = nodesWifiAp.Get (0);
-    Ipv4Address remoteHostAddr = interfacesWifiAp.GetAddress (0);
-    uint16_t sinkport = 1234+ i;
-    Address sinkAddress(InetSocketAddress (remoteHostAddr, sinkport));
-    ApplicationContainer sinkApp;
-    PacketSinkHelper packetSinkHelper("ns3::TcpSocketFactory", InetSocketAddress(Ipv4Address::GetAny(), sinkport));
-    sinkApp = packetSinkHelper.Install(remoteHost);
-    sinkApp.Start(Seconds(0.1));
-
-    Ptr<Socket> ns3TcpSocket = Socket::CreateSocket(congNode.Get(i), TcpSocketFactory::GetTypeId());
-    Ptr<MyApp> app = CreateObject<MyApp>();
-    app->Setup(ns3TcpSocket, sinkAddress, congPktSize, 500000000, DataRate(congRate), (101+i), 1);
-    app->m_congId = i;
-    app->m_rate = inputCongRate;
-    congNode.Get(i)->AddApplication(app);
-    app->SetStartTime(Seconds(0.1));
-    std::cout << "Sending Congestion Traffic" <<std::endl;
-    app->SendPacket();
-   }
-  }
-  else
-  {
-    std::cout << " Congestion Traffic rate = 0" <<std::endl;
-  }
- }
- else
- {
-  if (DataRate(congRate) > 0)
-  {
-   /************** LTE Uplink Data transfer for Congestion *************/
-   for (uint32_t i = 0; i < congNode.GetN(); ++i){
-    uint16_t sinkport = 500+i;
-    Address sinkAddress(InetSocketAddress (remoteHostAddr, sinkport));
-    ApplicationContainer sinkApp;
-    PacketSinkHelper packetSinkHelper("ns3::TcpSocketFactory", InetSocketAddress(Ipv4Address::GetAny(), sinkport));
-    sinkApp = packetSinkHelper.Install(remoteHost);
-    sinkApp.Start(Seconds(0.1));
-
-    Ptr<Socket> ns3TcpSocket = Socket::CreateSocket(congNode.Get(i), TcpSocketFactory::GetTypeId());
-    Ptr<MyApp> app = CreateObject<MyApp>();
-    app->Setup(ns3TcpSocket, sinkAddress, congPktSize, 500000000, DataRate(congRate), (101+i), 1);
-    app->m_congId = i;
-    app->m_rate = inputCongRate;
-    congNode.Get(i)->AddApplication(app);
-    app->SetStartTime(Seconds(0.1));
-    std::cout << "Sending Congestion Traffic" <<std::endl;
-    app->SendPacket();
-
-   }
-  }
-  else
-  {
-    std::cout << " Congestion Traffic rate = 0" <<std::endl;
-  }
- }
  
 
   /************* CREATE PUB SUB THREADS ******************/
