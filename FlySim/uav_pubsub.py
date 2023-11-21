@@ -178,6 +178,7 @@ class UAV:
             data = socket.recv()
             if "TERMINATE" in data:
                 break
+            # TODO: check if the data is for the correct UAV
             if data:
                 if verbose:
                     print(self.prefix + " CONTROL: Message received :" + data)

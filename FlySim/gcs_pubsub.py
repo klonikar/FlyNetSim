@@ -9,6 +9,8 @@ Ui_MainWindow, QtBaseClass = uic.loadUiType(qtCreatorFile)
 
 
 class MyGCS(QtGui.QMainWindow, Ui_MainWindow):
+    # TODO: change the work with only one drone
+    # Change the Uav_instance to one.
     def __init__(self, tel_port, control_port, uav_instances, verbose):
         self.uav_count = uav_instances
         self.tel_msg_count = 0
@@ -28,6 +30,7 @@ class MyGCS(QtGui.QMainWindow, Ui_MainWindow):
         QtGui.QMainWindow.__init__(self)
         Ui_MainWindow.__init__(self)
         self.setupUi(self)
+        self.setWindowTitle("MainWindow Uav: " + uavName);
         self.lbl_status.setText("Disconnected")
         self.btn_connect.clicked.connect(lambda: self.connect_uav())
         self.btn_go.clicked.connect(lambda: self.go_to())
