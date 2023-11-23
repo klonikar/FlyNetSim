@@ -11,7 +11,7 @@ Ui_MainWindow, QtBaseClass = uic.loadUiType(qtCreatorFile)
 class MyGCS(QtGui.QMainWindow, Ui_MainWindow):
     # TODO: Change to work with multiple UAVs
     def __init__(self, tel_socket, control_socket, uav_id, verbose):
-        self.uav_id = format(uav_id, "03d") # UAV ID
+        self.uav_id = uav_id # UAV ID
         self.tel_msg_count = 0
         self.control_msg_count = 0
         self.verbose = verbose
