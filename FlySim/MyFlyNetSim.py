@@ -7,7 +7,7 @@ import argparse
 import time
 import xml.etree.cElementTree as Et
 import zmq
-import gcs_pubsub as gcs
+import my_gcs_pubsub as gcs
 import uav_pubsub as uav
 
 

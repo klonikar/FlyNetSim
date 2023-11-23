@@ -340,6 +340,4 @@ def main(tel_port, control_port, uav_id, verbose):
     window = MyGCS(tel_port, control_port, uav_id, verbose)
     window.show()
     sys.exit(app.exec_())
-    #app.exec_()
-    window.connection_close()
 
