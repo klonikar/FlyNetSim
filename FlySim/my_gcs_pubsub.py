@@ -1,8 +1,7 @@
 import sys
 import time
 import threading
-import zmq
-from PyQt4 import QtCore, QtGui, uic
+from PyQt4 import QtGui, uic
 
 qtCreatorFile = "GUI/mainwindow.ui"
 Ui_MainWindow, QtBaseClass = uic.loadUiType(qtCreatorFile)
@@ -305,5 +304,3 @@ def main(tel_port, control_port, instance, verbose):
     window = MyGCS(tel_port, control_port, instance, verbose)
     window.show()
     sys.exit(app.exec_())
-    # app.exec_()
-    window.connection_close()

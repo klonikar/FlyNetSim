@@ -134,12 +134,30 @@ if __name__ == "__main__":
     gcs_zmq_control_connection_str = "tcp://127.0.0.1:5500"
     gcs_zmq_control_socket = create_zmq("PUB", gcs_zmq_control_connection_str, verbose=True)
 
-    ftr = "@@@U_" + uav_id
+    # ftr = "@@@U_" + uav_id
+    # gcs_zmq_tel_connection_str = "tcp://127.0.0.1:5501"
+    # gcs_zmq_tel_socket = create_zmq("SUB", gcs_zmq_tel_connection_str, ftr, verbose=True)
+    # gcs.main(gcs_zmq_tel_socket, gcs_zmq_control_socket, uav_id, ver)  # NS3
 
-    gcs_zmq_tel_connection_str = "tcp://127.0.0.1:5501"
-    gcs_zmq_tel_socket = create_zmq("SUB", gcs_zmq_tel_connection_str, ftr, verbose=True)
+    for i in range(args.instance):
+        gcs_zmq_tel_connection_str = "tcp://127.0.0.1:5501"
+        ftr = "@@@U_" + format(i, "03d")
+        gcs_zmq_tel_socket = create_zmq("SUB", gcs_zmq_tel_connection_str, ftr, verbose=True)
+        gcs_thread = threading.Thread(target=gcs.main, args=(gcs_zmq_tel_socket, gcs_zmq_control_socket, uav_id, ver))
+        gcs_thread.setName("GCS_UAV_" + uav_id)
+        gcs_thread.daemon = True
+        gcs_thread.start()
+        gcs_obj.append(gcs_thread)
 
-    gcs.main(gcs_zmq_tel_socket, gcs_zmq_control_socket, uav_id, ver)  # NS3
+    # time.sleep(5)
+    
+    while True:
+        count = 0
+        for p in gcs_obj:
+            if p.is_alive():
+                count += 1
+        if count == 0:
+            break
 
     print("[MAIN] Terminating the SITL instances")
     for p in proc_instance:
