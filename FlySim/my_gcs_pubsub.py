@@ -9,30 +9,21 @@ Ui_MainWindow, QtBaseClass = uic.loadUiType(qtCreatorFile)
 
 
 class MyGCS(QtGui.QMainWindow, Ui_MainWindow):
-    # TODO: Change to work with multiple UAVs
-    def __init__(self, tel_socket, control_socket, uav_id, verbose):
-        print("MyGCS0 init" + uav_id)
-        self.uav_id = uav_id # UAV ID
+    def __init__(self, tel_port, control_port, uav_id, verbose):
+        self.uav_id = uav_id
         self.tel_msg_count = 0
         self.control_msg_count = 0
         self.verbose = verbose
         self.running = True
         self.prefix = "[GCS]"
 
-        # Setting up ZMQ related parameters
-        # self.zmq_tel_port = tel_port
-        # self.zmq_control_port = control_port
-        # self.zmq_tel_connection_str = "tcp://127.0.0.1:" + str(self.zmq_tel_port)
-        # self.zmq_control_connection_str = "tcp://127.0.0.1:" + str(self.zmq_control_port)
-        # self.zmq_tel_socket = self.create_zmq("SUB", self.zmq_tel_connection_str, "", verbose=self.verbose)
-        # self.zmq_control_socket = self.create_zmq("PUB", self.zmq_control_connection_str, verbose=self.verbose)
-        self.zmq_tel_socket = tel_socket
-        self.zmq_control_socket = control_socket
+        self.zmq_control_socket = control_port
+        self.zmq_tel_socket = tel_port
 
         QtGui.QMainWindow.__init__(self)
         Ui_MainWindow.__init__(self)
         self.setupUi(self)
-        self.setWindowTitle("Window Uav " + str(self.uav_count) + " GCS")
+        self.setWindowTitle("GCS Windows UAV: " + uav_id)
         self.lbl_status.setText("Disconnected")
         self.btn_connect.clicked.connect(lambda: self.connect_uav())
         self.btn_go.clicked.connect(lambda: self.go_to())
@@ -75,38 +66,12 @@ class MyGCS(QtGui.QMainWindow, Ui_MainWindow):
         self.thread_heartbeat.daemon = True
         self.thread_heartbeat.start()
 
-    # TODO: Delete this function
-    def create_zmq(self, zmq_type, con_string, prefix="", verbose=False):
-        context = zmq.Context()
-        if "PUB" in zmq_type:
-            if verbose:
-                print(self.prefix + " [ZMQ] Binding publisher started " + con_string)
-            sock_new = context.socket(zmq.PUB)
-            sock_new.bind(con_string)
-            if verbose:
-                print(self.prefix + " [ZMQ] Publisher bound complete " + con_string)
-        elif "SUB" in zmq_type:
-            if verbose:
-                print(self.prefix + " [ZMQ] Subscriber connect started " + con_string)
-            sock_new = context.socket(zmq.SUB)
-            sock_new.connect(con_string)
-            sock_new.setsockopt(zmq.SUBSCRIBE, prefix)
-            if verbose:
-                print(self.prefix + " [ZMQ] Subscriber connect complete " + con_string)
-        else:
-            return None
-        return sock_new
-
     def connection_close(self):
         if self.verbose:
             print(self.prefix + " Closing the connections")
         print(self.prefix + " From desctructor")
-        self.send_data("TERMINATE", self.uav_id, self.zmq_control_socket, self.verbose)
+        self.send_data("TERMINATE", "000", self.zmq_control_socket, self.verbose)
         self.running = False
-        
-        # TODO: To flynSim.py
-        # self.zmq_control_socket.close()
-        # self.zmq_tel_socket.close()
 
     def connect_uav(self):
         self.send_data("COMMAND:CONNECT", self.uav_id, self.zmq_control_socket, self.verbose)
@@ -114,12 +79,12 @@ class MyGCS(QtGui.QMainWindow, Ui_MainWindow):
     def arm_disarm_throttle(self):
         if not self.arm:
             cmd = "COMMAND:ARM"
-            self.send_data(cmd, self.uav_id, self.zmq_control_socket, self.verbose)                
+            self.send_data(cmd, self.uav_id, self.zmq_control_socket, self.verbose)
             self.arm = 1
             self.lbl_status.setText("Arm Requested")
         elif self.arm:
             cmd = "COMMAND:DISARM"
-            self.send_data(cmd, self.uav_id, self.zmq_control_socket, self.verbose)  
+            self.send_data(cmd, self.uav_id, self.zmq_control_socket, self.verbose)
             self.arm = 0
             self.lbl_status.setText("Disarm Requested")
 
@@ -130,14 +95,14 @@ class MyGCS(QtGui.QMainWindow, Ui_MainWindow):
             speed = self.sb_speed.value()
             mode = self.cb_mode.currentText()
             cmd = "COMMAND:TAKEOFF|ALT=" + str(alt) + "|MODE=" + str(mode) + "|SPEED=" + str(speed)
-            self.send_data(cmd, self.uav_id, self.zmq_control_socket, self.verbose)  
+            self.send_data(cmd, self.uav_id, self.zmq_control_socket, self.verbose)
             self.flying = 1
 
     def land(self):
         if self.flying:
             self.lbl_status.setText("Land Requested")
             cmd = "COMMAND:LAND"
-            self.send_data(cmd, self.uav_id, self.zmq_control_socket, self.verbose)  
+            self.send_data(cmd, self.uav_id, self.zmq_control_socket, self.verbose)
             self.send_data(cmd, "000", self.zmq_control_socket, self.verbose)
             self.flying = 0
 
@@ -145,13 +110,13 @@ class MyGCS(QtGui.QMainWindow, Ui_MainWindow):
         if self.flying:
             self.lbl_status.setText("RTL Requested")
             cmd = "COMMAND:RTL"
-            self.send_data(cmd, self.uav_id, self.zmq_control_socket, self.verbose)  
+            self.send_data(cmd, self.uav_id, self.zmq_control_socket, self.verbose)
 
     def go_to(self):
         if self.flying:
             x = self.tb_goto_x.text()
             y = self.tb_goto_y.text()
-            self.lbl_status.setText("Goto: X=" + str(x) + " Y=" +str(y))
+            self.lbl_status.setText("Goto: X=" + str(x) + " Y=" + str(y))
             cmd = "COMMAND:GOTO|X=" + str(x) + "|Y=" + str(y)
             print(cmd)
             self.send_data(cmd, self.uav_id, self.zmq_control_socket, self.verbose)
@@ -160,44 +125,44 @@ class MyGCS(QtGui.QMainWindow, Ui_MainWindow):
         if self.flying:
             self.lbl_status.setText("Up")
             cmd = "COMMAND:GO_UP"
-            self.send_data(cmd, self.uav_id, self.zmq_control_socket, self.verbose)  
+            self.send_data(cmd, self.uav_id, self.zmq_control_socket, self.verbose)
 
     def go_down(self):
         if self.flying:
             self.lbl_status.setText("Down")
             cmd = "COMMAND:GO_DOWN"
-            self.send_data(cmd, self.uav_id, self.zmq_control_socket, self.verbose)  
+            self.send_data(cmd, self.uav_id, self.zmq_control_socket, self.verbose)
 
     def go_left(self):
         if self.flying:
             self.lbl_status.setText("Left")
             cmd = "COMMAND:GO_LEFT"
-            self.send_data(cmd, self.uav_id, self.zmq_control_socket, self.verbose)  
+            self.send_data(cmd, self.uav_id, self.zmq_control_socket, self.verbose)
 
     def go_right(self):
         if self.flying:
             self.lbl_status.setText("Right")
             cmd = "COMMAND:GO_RIGHT"
-            self.send_data(cmd, self.uav_id, self.zmq_control_socket, self.verbose)  
+            self.send_data(cmd, self.uav_id, self.zmq_control_socket, self.verbose)
 
     def go_forward(self):
         if self.flying:
             self.lbl_status.setText("Forward")
             cmd = "COMMAND:GO_FORWARD"
-            self.send_data(cmd, self.uav_id, self.zmq_control_socket, self.verbose)  
+            self.send_data(cmd, self.uav_id, self.zmq_control_socket, self.verbose)
 
     def go_backward(self):
         if self.flying:
             self.lbl_status.setText("Backward")
             cmd = "COMMAND:GO_BACKWARD"
-            self.send_data(cmd, self.uav_id, self.zmq_control_socket, self.verbose)  
+            self.send_data(cmd, self.uav_id, self.zmq_control_socket, self.verbose)
 
     def send_data(self, message, uav_id, sock, verbose):
         try:
             self.control_msg_count += 1
             msg_send = "@@@G_" + uav_id + "***" + str(self.control_msg_count) + "***" + \
                        repr(time.time()) + "***" + message + "***"
-                       #str(time.time()) + "***" + message + "***"
+            # str(time.time()) + "***" + message + "***"
             if verbose:
                 print(self.prefix + " CONTROL: sending " + msg_send)
             self.textedit_control.append(msg_send + "\n")
@@ -206,10 +171,9 @@ class MyGCS(QtGui.QMainWindow, Ui_MainWindow):
             print(self.prefix + " CONTROL: Exception occurred while sending data")
 
     def get_telemetry(self):
-        prefix = "@@@G_" + self.uav_id
         while self.running:
             data = self.zmq_tel_socket.recv()
-            if prefix in data:
+            if data:
                 self.textedit_telemetry.append(data + "\n")
                 d_list = data.split('***')
                 payload = d_list[3]
@@ -217,9 +181,9 @@ class MyGCS(QtGui.QMainWindow, Ui_MainWindow):
                     telemetry_data = d_list[3].split('#')
                     for t in telemetry_data:
                         if "LocationGlobalRelative" in t:
-                            self.lbl_gps.setText(t[t.find(':')+1:])
+                            self.lbl_gps.setText(t[t.find(':') + 1:])
                         elif "Battery" in t:
-                            self.lbl_battery.setText(t[t.find(':')+1:])
+                            self.lbl_battery.setText(t[t.find(':') + 1:])
                 if "SENSOR" in payload:
                     print(data)
                 if "STATUS" in payload:
@@ -336,9 +300,10 @@ class MyGCS(QtGui.QMainWindow, Ui_MainWindow):
                 time.sleep(0.1)
 
 
-def main(tel_port, control_port, uav_id, verbose):
+def main(tel_port, control_port, instance, verbose):
     app = QtGui.QApplication(sys.argv)
-    window = MyGCS(tel_port, control_port, uav_id, verbose)
+    window = MyGCS(tel_port, control_port, instance, verbose)
     window.show()
     sys.exit(app.exec_())
-
+    # app.exec_()
+    window.connection_close()

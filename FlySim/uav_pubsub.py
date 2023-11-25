@@ -134,7 +134,8 @@ class UAV:
                 self.send_data("TELEMETRY#" + msg, self.zmq_tel_socket, self.verbose)
                 if self.home_location is not None and self.current_location is not None:
                     x, y = self.get_distance_metres(self.home_location, self.current_location)
-                    file_w = open("plot.csv", "a")
+                    file_name = "plot_" + self.uav_id +".csv"
+                    file_w = open(file_name, "a")
                     file_w.write(str(x) + '\t' + str(y) + '\t' + str(battery[battery.find("level=")+6:]) + '\n')
                     file_w.close()
                     print(str(x) + '\t' + str(y) + '\t' + str(battery[battery.find("level=")+6:]))

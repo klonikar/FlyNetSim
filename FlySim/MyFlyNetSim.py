@@ -91,8 +91,8 @@ if __name__ == "__main__":
     gcs_obj = []
 
     time.sleep(0.1)
-    # ns_cmd = "xterm -hold -T Network_Simulator -e 'cd " + args.path + " && ./waf --run=\"uav-net-sim\"'"
-    ns_cmd = "xterm -hold -T Network_Simulator -e 'cd " + args.path + " && ./waf --run=\"uav-net-sim\" |& tee NetSimOut.txt'"
+    ns_cmd = "xterm -hold -T Network_Simulator -e 'cd " + args.path + " && ./waf --run=\"uav-net-sim\"'"
+    # ns_cmd = "xterm -hold -T Network_Simulator -e 'cd " + args.path + " && ./waf --run=\"uav-net-sim\" |& tee NetSimOut.txt'"
     print("[MAIN] Starting the network simulator: " + ns_cmd)
     proc_instance.append(subprocess.Popen(ns_cmd, shell=True))
     time.sleep(3)
@@ -131,26 +131,15 @@ if __name__ == "__main__":
     else:
         ver = False
 
-    gcs_zmq_control_connection_str = "tcp://172.0.0.1:5500"
+    gcs_zmq_control_connection_str = "tcp://127.0.0.1:5500"
     gcs_zmq_control_socket = create_zmq("PUB", gcs_zmq_control_connection_str, verbose=True)
 
-    for i in range(args.instance):
-        ftr = "@@@U_" + uav_id
-        gcs_zmq_tel_connection_str = "tcp://172.0.0.1:5001"
-        gcs_zmq_tel_socket = create_zmq("SUB", gcs_zmq_tel_connection_str, ftr, True)
-        gcs_thread = threading.Thread(target=gcs.GCS, args=(gcs_zmq_tel_socket, gcs_zmq_control_socket, uav_id, ver))
-        gcs_thread.setName("GCS_" + uav_id)
-        gcs_thread.deamon = True
-        gcs_thread.start()
-        gcs_obj.append(gcs_thread)
+    ftr = "@@@U_" + uav_id
 
-    while True:
-        count = 0
-        for u in uav_obj:
-            if u.isAlive():
-                count += 1
-        if count == 0:
-            break
+    gcs_zmq_tel_connection_str = "tcp://127.0.0.1:5501"
+    gcs_zmq_tel_socket = create_zmq("SUB", gcs_zmq_tel_connection_str, ftr, verbose=True)
+
+    gcs.main(gcs_zmq_tel_socket, gcs_zmq_control_socket, uav_id, ver)  # NS3
 
     print("[MAIN] Terminating the SITL instances")
     for p in proc_instance:
@@ -159,4 +148,6 @@ if __name__ == "__main__":
         p.kill()
         os.killpg(os.getpgid(p.pid+1), signal.SIGTERM)
 
-
+    print("[MAIN] Close the GCS socket")
+    gcs_zmq_control_socket.close()
+    gcs_zmq_tel_socket.close()
