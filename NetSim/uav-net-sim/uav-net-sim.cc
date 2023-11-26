@@ -211,22 +211,34 @@ void RcvPktTrace(){
 /**** send command to specific UAV node over socket***/
 /*****************************************************/
 
+struct thread_args
+{
+  int index;
+  vector <Ptr<MyApp>> *vect;
+};
+
 /*
 * The above code is a function called "rcvCommands" that receives commands 
 * from a ZeroMQ subscriber socket and sends them to specific UAV applications.
 */
+// TODO: Make different sockets for each UAV to 550* ports
 void* rcvCommands(void *arg)
 {
 
   std::cout << "STRUCT VOID : " << arg << std::endl; 
-  vector <Ptr<MyApp>> *vectCom = (vector <Ptr<MyApp>> *) arg;
+  thread_args *args = (thread_args *) arg;
+  vector <Ptr<MyApp>> *vectCom = args->vect;
   int numUav = vectCom->size();
   std::cout << "Number of UAV APPs receiving Commands: " << numUav << std::endl; 
   int rc;
   void *context = zmq_ctx_new ();
   void *subscriber = zmq_socket (context, ZMQ_SUB);  
 
-  rc = zmq_connect (subscriber, "tcp://localhost:5500");
+  // Create a subscriber socket with port 5501 + index
+  char port[10] = {'\0'};
+  sprintf(port, "%d", 5501 + args->index);
+  std::cout << "PORT : " << port << std::endl;
+  rc = zmq_connect (subscriber, ("tcp://localhost:" + string(port)).c_str());
   assert (rc == 0);
   zmq_setsockopt( subscriber, ZMQ_SUBSCRIBE, "", 0);
   
@@ -368,7 +380,8 @@ void* rcvTelemetry(void *arg)
       //Update mobility based on current position
       // printf("X \t %f \t Y \t %f\n", cur_x, cur_y);
       printf("Uav %d X \t %f \t Y \t %f\n", uav, cur_x, cur_y);
-      Ptr<Node> uavNode = ns3::NodeList::GetNode(uav); //TODO: Need to change for multi-UAV
+      //TODO: Need to change for multi-UAV
+      Ptr<Node> uavNode = ns3::NodeList::GetNode(uav); 
       Ptr<ConstantPositionMobilityModel> mmUAV = uavNode->GetObject<ConstantPositionMobilityModel>();
       ns3::Simulator::ScheduleNow(&ConstantPositionMobilityModel::SetPosition, mmUAV, Vector(cur_x, cur_y, 10));
 
@@ -424,7 +437,7 @@ int main (int argc, char *argv[])
 
   /*********** Bind Publisher socket ***********/
   zmq_bind (publisherCm, "tcp://127.0.0.1:5601");
-  zmq_bind (publisherTm, "tcp://127.0.0.1:5501");
+  zmq_bind (publisherTm, "tcp://127.0.0.1:5500");
 
 
   /*********** Load input from XML file ***********/
@@ -837,12 +850,16 @@ int main (int argc, char *argv[])
 
   /************* CREATE PUB SUB THREADS ******************/
   int err;
-  err = pthread_create(&(tid_gcs[0]), NULL, &rcvCommands, (void *)(&appVectCom));
-  if(err != 0)
+  thread_args *args = new thread_args[nUAV];
+  for (int i = 0; i < nUAV; ++i){
+    args[i].index = i;
+    args[i].vect = &appVectCom;
+    err = pthread_create(&(tid_gcs[0]), NULL, &rcvCommands, (void *)(args[i]));
+    if(err != 0)
             printf("\n can't create thread : [%s]", strerror(err));
     else
             printf("\n Command Thread created successfully \n");
-
+  } 
   err = pthread_create(&(tid_uav[0]), NULL, &rcvTelemetry, (void *)(&appVectTel));
   if(err != 0)
             printf("\n can't create thread : [%s]", strerror(err));

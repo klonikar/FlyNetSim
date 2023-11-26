@@ -134,7 +134,7 @@ if __name__ == "__main__":
 
     for i in range(args.instance):
         port = 5501 + i      
-        gcs_thread = multiprocessing.Process(target=gcs.main, args=(port, 5500, uav_id, ver))
+        gcs_thread = multiprocessing.Process(target=gcs.main, args=(5500, port, uav_id, ver))
         gcs_thread.start()
         gcs_obj.append(gcs_thread)
 
