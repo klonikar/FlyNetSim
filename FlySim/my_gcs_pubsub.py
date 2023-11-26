@@ -1,6 +1,7 @@
 import sys
 import time
 import threading
+import zmq
 from PyQt4 import QtGui, uic
 
 qtCreatorFile = "GUI/mainwindow.ui"
@@ -16,8 +17,15 @@ class MyGCS(QtGui.QMainWindow, Ui_MainWindow):
         self.running = True
         self.prefix = "[GCS]"
 
-        self.zmq_control_socket = control_port
-        self.zmq_tel_socket = tel_port
+        # Setting up ZMQ related parameters
+        ftr = "@@@U_" + uav_id
+        self.zmq_tel_port = tel_port
+        self.zmq_control_port = control_port
+        self.zmq_tel_connection_str = "tcp://127.0.0.1:" + str(self.zmq_tel_port)
+        self.zmq_control_connection_str = "tcp://127.0.0.1:" + str(self.zmq_control_port)
+        self.zmq_tel_socket = self.create_zmq("SUB", self.zmq_tel_connection_str, ftr, verbose=self.verbose)
+        self.zmq_control_socket = self.create_zmq("PUB", self.zmq_control_connection_str, verbose=self.verbose)
+
 
         QtGui.QMainWindow.__init__(self)
         Ui_MainWindow.__init__(self)
@@ -64,6 +72,27 @@ class MyGCS(QtGui.QMainWindow, Ui_MainWindow):
         self.thread_heartbeat.setName("GCS-heartbeat")
         self.thread_heartbeat.daemon = True
         self.thread_heartbeat.start()
+
+    def create_zmq(self, zmq_type, con_string, prefix="", verbose=False):
+        context = zmq.Context()
+        if "PUB" in zmq_type:
+            if verbose:
+                print(self.prefix + " [ZMQ] Binding publisher started " + con_string)
+            sock_new = context.socket(zmq.PUB)
+            sock_new.bind(con_string)
+            if verbose:
+                print(self.prefix + " [ZMQ] Publisher bound complete " + con_string)
+        elif "SUB" in zmq_type:
+            if verbose:
+                print(self.prefix + " [ZMQ] Subscriber connect started " + con_string)
+            sock_new = context.socket(zmq.SUB)
+            sock_new.connect(con_string)
+            sock_new.setsockopt(zmq.SUBSCRIBE, prefix)
+            if verbose:
+                print(self.prefix + " [ZMQ] Subscriber connect complete " + con_string)
+        else:
+            return None
+        return sock_new
 
     def connection_close(self):
         if self.verbose:

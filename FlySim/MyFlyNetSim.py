@@ -7,6 +7,7 @@ import argparse
 import time
 import xml.etree.cElementTree as Et
 import zmq
+import multiprocessing
 import my_gcs_pubsub as gcs
 import uav_pubsub as uav
 
@@ -131,33 +132,14 @@ if __name__ == "__main__":
     else:
         ver = False
 
-    gcs_zmq_control_connection_str = "tcp://127.0.0.1:5500"
-    gcs_zmq_control_socket = create_zmq("PUB", gcs_zmq_control_connection_str, verbose=True)
-
-    # ftr = "@@@U_" + uav_id
-    # gcs_zmq_tel_connection_str = "tcp://127.0.0.1:5501"
-    # gcs_zmq_tel_socket = create_zmq("SUB", gcs_zmq_tel_connection_str, ftr, verbose=True)
-    # gcs.main(gcs_zmq_tel_socket, gcs_zmq_control_socket, uav_id, ver)  # NS3
-
     for i in range(args.instance):
-        gcs_zmq_tel_connection_str = "tcp://127.0.0.1:5501"
-        ftr = "@@@U_" + format(i, "03d")
-        gcs_zmq_tel_socket = create_zmq("SUB", gcs_zmq_tel_connection_str, ftr, verbose=True)
-        gcs_thread = threading.Thread(target=gcs.main, args=(gcs_zmq_tel_socket, gcs_zmq_control_socket, uav_id, ver))
-        gcs_thread.setName("GCS_UAV_" + uav_id)
-        gcs_thread.daemon = True
+        port = 5501 + i      
+        gcs_thread = multiprocessing.Process(target=gcs.main, args=(port, 5500, uav_id, ver))
         gcs_thread.start()
         gcs_obj.append(gcs_thread)
 
-    # time.sleep(5)
-    
-    while True:
-        count = 0
-        for p in gcs_obj:
-            if p.is_alive():
-                count += 1
-        if count == 0:
-            break
+    for p in gcs_obj:
+        p.join()
 
     print("[MAIN] Terminating the SITL instances")
     for p in proc_instance:
@@ -165,7 +147,3 @@ if __name__ == "__main__":
         os.kill(p.pid, 0)
         p.kill()
         os.killpg(os.getpgid(p.pid+1), signal.SIGTERM)
-
-    print("[MAIN] Close the GCS socket")
-    gcs_zmq_control_socket.close()
-    gcs_zmq_tel_socket.close()
