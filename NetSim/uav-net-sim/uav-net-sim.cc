@@ -850,11 +850,11 @@ int main (int argc, char *argv[])
 
   /************* CREATE PUB SUB THREADS ******************/
   int err;
-  thread_args *args = new thread_args[nUAV];
+  thread_args *myargs = new thread_args[nUAV];
   for (int i = 0; i < nUAV; ++i){
-    args[i].index = i;
-    args[i].vect = &appVectCom;
-    err = pthread_create(&(tid_gcs[0]), NULL, &rcvCommands, (void *)(args[i]));
+    myargs[i].index = i;
+    myargs[i].vect = &appVectCom;
+    err = pthread_create(&(tid_gcs[0]), NULL, &rcvCommands, (void *)(myargs[i]));
     if(err != 0)
             printf("\n can't create thread : [%s]", strerror(err));
     else
@@ -883,4 +883,5 @@ int main (int argc, char *argv[])
   Simulator::Stop (Seconds (100000.));
   Simulator::Run ();
   Simulator::Destroy ();
+  delete myargs;
 }
