@@ -186,7 +186,55 @@ void RcvPacket(Ptr<Packet> p, Address &addr)
     }
 
   }
-	else{	}
+	else if(string[3] == 'D')   // from drone to drone
+  {
+    zmq_msg_t message;
+    zmq_msg_init_size (&message, strlen (string));
+    memcpy (zmq_msg_data (&message), string, strlen (string));
+    printf(" Publish MSG : %s \n", string);
+    zmq_sendmsg (publisherCm, &message, 0);
+    zmq_msg_close (&message);
+
+	  // Tokenize to parse packet to get packet ingress and egress time : do it in every one sec interval	 
+	  g_cmd_end = ns3::Simulator::Now().GetMilliSeconds();
+	  g_cmd_num++;
+	  
+    char* token = strtok(s, "***");
+	  int count = 0;
+    long ingress_time = 0;
+    long egress_time = 0;
+
+	  while(token)
+	  {
+      if(count == 5)
+      {
+        ingress_time = (atol)(token);
+      }
+      else if(count == 6)
+      {
+        egress_time = (atol)(token);
+      }
+      count++;
+      //printf("count = %d   token: %s \n", count, token);
+      token = strtok(NULL, "***");
+	  }
+
+	  long net_delay = egress_time - ingress_time + 1;
+	  g_cmd_tot_delay += net_delay;
+
+	  if((g_cmd_end - g_cmd_start) > 1000)   // print average network packet delay for command packets, in every sec
+	  {
+      float g_cmd_avg_delay = (float)(g_cmd_tot_delay)/g_cmd_num;
+            printf(">>>>>> D2D Average Network Delay for command packets: %f MilliSec.\n", g_cmd_avg_delay);
+
+      //reset variables
+      g_cmd_tot_delay = 0;
+      g_cmd_num = 0; 
+      g_cmd_start = g_cmd_end;
+	   }
+  }
+  
+  else{	}
 
   free(sTime);
   free(s);
