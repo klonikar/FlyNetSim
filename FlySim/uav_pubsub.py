@@ -163,6 +163,23 @@ class UAV:
             return None
         return sock_new
 
+#TODO Check the 
+    def d2d_send(self, sock, verbose):
+        d2d_seq = 0
+        if self.prefix == "[UAV_000]":
+            uavs=[000, 001]
+        else: 
+            uavs=[001, 000]
+        while True:
+            if self.home_location is not None and self.current_location is not None:
+                x, y = self.get_distance_metres(self.home_location, self.current_location)
+                n_time = time.time()
+                msg = "@@@D_" + str(uavs[1]) + "*" + str(uavs[0]) + "***" + str(d2d_seq) + "***" + str(n_time) + "***" + str(x) + "***" + str(y) + "***"
+                sock.send(msg)
+                print(">>>>>> D2D send" + msg)
+                time.sleep(4)
+
+
     def send_data(self, message, sock, verbose):
         try:
             self.tel_msg_count += 1
@@ -174,12 +191,36 @@ class UAV:
         except:
             print(self.prefix + " TELEMETRY: Exception occurred while sending data")
 
+# TODO: check the function
+    def d2d_receive(self, message, verbose):
+        # @@@D_uav_id_i*uav_id_j***seq_no***timestamp***str(x)***str(y)***
+        d_list = message[5:].split('***')
+        uavs= d_list[0].split('*')
+        send_time = float(d_list[2])
+        recv_time = time.time()
+        
+        ns_start = d_list[-2]
+        ns_end = d_list[-1]
+
+        # get location and caculate distance
+        x1, y1 = self.get_distance_metres(self.home_location, self.current_location)
+
+        x2 = float(d_list[3])
+        y2 = float(d_list[4])
+        distance = math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)
+
+        #Print massage
+        print(">>>>>> UAV ID: " + str(uavs[0]) + "Delay " + str(recv_time - send_time) + "NS Delay " + str(ns_end - ns_start) + "Distance " + str(distance))
+
     def get_data(self, socket, verbose):
         while True:
             data = socket.recv()
             if "TERMINATE" in data:
                 break
-            # TODO: check if the data is for the correct UAV
+            if "@@@D_" in data:
+                self.d2d_receive(data, verbose)
+                continue     
+
             if data:
                 if verbose:
                     print(self.prefix + " CONTROL: Message received :" + data)

@@ -26,7 +26,8 @@ def create_zmq(zmq_type, con_string, prefix="", verbose=False):
             print("[MAIN] [ZMQ] Subscriber connect started " + con_string)
         sock_new = context.socket(zmq.SUB)
         sock_new.connect(con_string)
-        sock_new.setsockopt(zmq.SUBSCRIBE, prefix)
+        for ftr in prefix:
+            sock_new.setsockopt(zmq.SUBSCRIBE, ftr)
         if verbose:
             print("[MAIN] [ZMQ] Subscriber connect complete " + con_string + " Prefix " + prefix)
     else:
@@ -114,7 +115,9 @@ if __name__ == "__main__":
         # Seperate Subcribers with individual filters
         uav_zmq_control_connection_str = "tcp://127.0.0.1:5601"  # NS-3
         
-        ftr = "@@@G_" + uav_id
+        ftr = []
+        ftr[0] = "@@@G_" + uav_id
+        ftr[1] = "@@@D_" + uav_id
         uav_zmq_control_socket = create_zmq("SUB", uav_zmq_control_connection_str, ftr, True)
         if args.verbose == 2 or args.verbose == 3:
             ver = True
