@@ -55,6 +55,10 @@ class UAV:
         # thread_tel.daemon = True
         # thread_tel.start()
 
+        thread = threading.Thread(target=self.d2d_send, args=(self.zmq_tel_socket, self.verbose))
+        thread.daemon = True
+        thread.start()
+
         self.get_data(self.zmq_control_socket, verbose)
 
 
