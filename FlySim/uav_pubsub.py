@@ -170,18 +170,22 @@ class UAV:
 #TODO Check the 
     def d2d_send(self, sock, verbose):
         d2d_seq = 0
-        if self.prefix == "[UAV_000]":
-            uavs=[000, 001]
-        else: 
-            uavs=[001, 000]
+        if self.uav_id == "000":
+            uav_to = "001"
+        else:
+            uav_to = "000"
+        time_send = time.time()
         while True:
             if self.home_location is not None and self.current_location is not None:
-                x, y = self.get_distance_metres(self.home_location, self.current_location)
-                n_time = time.time()
-                msg = "@@@D_" + str(uavs[1]) + "*" + str(uavs[0]) + "***" + str(d2d_seq) + "***" + str(n_time) + "***" + str(x) + "***" + str(y) + "***"
-                sock.send(msg)
-                print(">>>>>> D2D send" + msg)
-                time.sleep(4)
+                if time.time() - time_send > 4:
+                    x, y = self.get_distance_metres(self.home_location, self.current_location)
+                    n_time = time.time()
+                    msg = "@@@D_" + uav_to + "*" + self.uav_id + "***" + str(d2d_seq) + "***" + str(n_time) + "***" + str(x) + "***" + str(y) + "***"
+                    sock.send(msg)
+                    d2d_seq += 1
+                    print(">>>>>> D2D send" + msg)
+                    time_send = time.time()
+
 
 
     def send_data(self, message, sock, verbose):
@@ -199,12 +203,22 @@ class UAV:
     def d2d_receive(self, message, verbose):
         # @@@D_uav_id_i*uav_id_j***seq_no***timestamp***str(x)***str(y)***
         d_list = message[5:].split('***')
+        if verbose:
+            print(">>>>>> D2D: ")
+            print(d_list)
         uavs= d_list[0].split('*')
         send_time = float(d_list[2])
         recv_time = time.time()
         
-        ns_start = d_list[-2]
-        ns_end = d_list[-1]
+        if (d_list > 6):
+            ns_start = float(d_list[5])
+            ns_end = float(d_list[6])
+        else:  #for DIRECT communication bypassing ns-3
+            ns_start = time.time()
+            ns_end = time.time()
+
+        ns_start = float(d_list[5])
+        ns_end = float(d_list[6])
 
         # get location and caculate distance
         x1, y1 = self.get_distance_metres(self.home_location, self.current_location)
@@ -214,7 +228,7 @@ class UAV:
         distance = math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)
 
         #Print massage
-        print(">>>>>> UAV ID: " + str(uavs[0]) + "Delay " + str(recv_time - send_time) + "NS Delay " + str(ns_end - ns_start) + "Distance " + str(distance))
+        print(">>>>>> UAV ID: " + repr(uavs[0]) + " Delay " + repr(recv_time - send_time) + " NS Delay " + repr(ns_end - ns_start) + " Distance " + repr(distance))
 
     def get_data(self, socket, verbose):
         while True:

@@ -28,8 +28,8 @@ def create_zmq(zmq_type, con_string, prefix="", verbose=False):
         sock_new.connect(con_string)
         for ftr in prefix:
             sock_new.setsockopt(zmq.SUBSCRIBE, ftr)
-        if verbose:
-            print("[MAIN] [ZMQ] Subscriber connect complete " + con_string + " Prefix " + prefix)
+            if verbose:
+                print("[MAIN] [ZMQ] Subscriber connect complete " + con_string + " Prefix " + ftr)
     else:
         return None
     return sock_new
@@ -93,8 +93,8 @@ if __name__ == "__main__":
     gcs_obj = []
 
     time.sleep(0.1)
-    ns_cmd = "xterm -hold -T Network_Simulator -e 'cd " + args.path + " && ./waf --run=\"uav-net-sim\"'"
-    # ns_cmd = "xterm -hold -T Network_Simulator -e 'cd " + args.path + " && ./waf --run=\"uav-net-sim\" |& tee NetSimOut.txt'"
+    # ns_cmd = "xterm -hold -T Network_Simulator -e 'cd " + args.path + " && ./waf --run=\"uav-net-sim\"'"
+    ns_cmd = "xterm -hold -T Network_Simulator -e 'cd " + args.path + " && ./waf --run=\"uav-net-sim\" |& tee NetSimOut.txt'"
     print("[MAIN] Starting the network simulator: " + ns_cmd)
     proc_instance.append(subprocess.Popen(ns_cmd, shell=True))
     time.sleep(3)
@@ -115,7 +115,7 @@ if __name__ == "__main__":
         # Seperate Subcribers with individual filters
         uav_zmq_control_connection_str = "tcp://127.0.0.1:5601"  # NS-3
         
-        ftr = []
+        ftr = ["",""]
         ftr[0] = "@@@G_" + uav_id
         ftr[1] = "@@@D_" + uav_id
         uav_zmq_control_socket = create_zmq("SUB", uav_zmq_control_connection_str, ftr, True)

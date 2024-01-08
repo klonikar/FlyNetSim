@@ -222,7 +222,7 @@ void RcvPacket(Ptr<Packet> p, Address &addr)
 	  long net_delay = egress_time - ingress_time + 1;
 	  g_cmd_tot_delay += net_delay;
 
-	  if((g_cmd_end - g_cmd_start) > 1000)   // print average network packet delay for command packets, in every sec
+	  if((g_cmd_end - g_cmd_start) > 4000)   // print average network packet delay for command packets, in every sec
 	  {
       float g_cmd_avg_delay = (float)(g_cmd_tot_delay)/g_cmd_num;
             printf(">>>>>> D2D Average Network Delay for command packets: %f MilliSec.\n", g_cmd_avg_delay);
@@ -902,7 +902,7 @@ int main (int argc, char *argv[])
   for (int i = 0; i < nUAV; ++i){
     myargs[i].index = i;
     myargs[i].vect = &appVectCom;
-    err = pthread_create(&(tid_gcs[0]), NULL, &rcvCommands, (void *)(myargs[i]));
+    err = pthread_create(&(tid_gcs[0]), NULL, &rcvCommands, (void *)(&myargs[i]));
     if(err != 0)
             printf("\n can't create thread : [%s]", strerror(err));
     else
