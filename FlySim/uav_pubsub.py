@@ -229,6 +229,13 @@ class UAV:
 
         #Print massage
         print(">>>>>> UAV ID: " + repr(uavs[0]) + " Delay " + repr(recv_time - send_time) + " NS Delay " + repr(ns_end - ns_start) + " Distance " + repr(distance))
+        file_name = "D2D.csv"
+        file_w = open(file_name, "a")
+        if uavs[0] == "000":
+            file_w.write(str(send_time) + '\t'+ x1+ '\t'+ x2 + '\t'+ y1+ '\t'+ y2 + str(recv_time - send_time) + '\t' + str(ns_end - ns_start) + '\t' + str(distance) + '\n')
+        else:
+            file_w.write(str(send_time) + '\t'+ x2+ '\t'+ x1 + '\t'+ y2+ '\t'+ y1 + str(recv_time - send_time) + '\t' + str(ns_end - ns_start) + '\t' + str(distance) + '\n')
+        file_w.close()
 
     def get_data(self, socket, verbose):
         while True:
