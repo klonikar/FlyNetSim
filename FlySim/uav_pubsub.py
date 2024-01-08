@@ -177,7 +177,7 @@ class UAV:
         time_send = time.time()
         while True:
             if self.home_location is not None and self.current_location is not None:
-                if time.time() - time_send > 4:
+                if time.time() - time_send > 2:
                     x, y = self.get_distance_metres(self.home_location, self.current_location)
                     n_time = time.time()
                     msg = "@@@D_" + uav_to + "*" + self.uav_id + "***" + str(d2d_seq) + "***" + str(n_time) + "***" + str(x) + "***" + str(y) + "***"
@@ -229,12 +229,12 @@ class UAV:
 
         #Print massage
         print(">>>>>> UAV ID: " + repr(uavs[0]) + " Delay " + repr(recv_time - send_time) + " NS Delay " + repr(ns_end - ns_start) + " Distance " + repr(distance))
-        file_name = "D2D.csv"
+        file_name = "D2D_" + self.uav_id +".csv"
         file_w = open(file_name, "a")
-        if uavs[0] == "000":
-            file_w.write(str(send_time) + '\t'+ x1+ '\t'+ x2 + '\t'+ y1+ '\t'+ y2 + str(recv_time - send_time) + '\t' + str(ns_end - ns_start) + '\t' + str(distance) + '\n')
+        if self.uav_id == "000":
+            file_w.write(repr(send_time) + '\t'+ repr(x1)+ '\t'+ repr(x2)+ '\t'+ repr(y1)+ '\t'+ repr(y2) + repr(recv_time - send_time) + '\t' + repr(ns_end - ns_start) + '\t' + repr(distance) + '\n')
         else:
-            file_w.write(str(send_time) + '\t'+ x2+ '\t'+ x1 + '\t'+ y2+ '\t'+ y1 + str(recv_time - send_time) + '\t' + str(ns_end - ns_start) + '\t' + str(distance) + '\n')
+            file_w.write(repr(send_time) + '\t'+ repr(x2)+ '\t'+ repr(x1)+ '\t'+ repr(y2)+ '\t'+ repr(y1) + repr(recv_time - send_time) + '\t' + repr(ns_end - ns_start) + '\t' + repr(distance) + '\n')
         file_w.close()
 
     def get_data(self, socket, verbose):
