@@ -232,9 +232,9 @@ class UAV:
         file_name = "D2D_" + self.uav_id +".csv"
         file_w = open(file_name, "a")
         if self.uav_id == "000":
-            file_w.write(repr(send_time) + '\t'+ repr(x1)+ '\t'+ repr(x2)+ '\t'+ repr(y1)+ '\t'+ repr(y2) + repr(recv_time - send_time) + '\t' + repr(ns_end - ns_start) + '\t' + repr(distance) + '\n')
+            file_w.write(repr(send_time) + ';'+ repr(x1)+ ';'+ repr(x2)+ ';'+ repr(y1)+ ';'+ repr(y2)+ ';'+ repr(recv_time - send_time) + ';' + repr(ns_end - ns_start) + ';' + repr(distance) + '\n')
         else:
-            file_w.write(repr(send_time) + '\t'+ repr(x2)+ '\t'+ repr(x1)+ '\t'+ repr(y2)+ '\t'+ repr(y1) + repr(recv_time - send_time) + '\t' + repr(ns_end - ns_start) + '\t' + repr(distance) + '\n')
+            file_w.write(repr(send_time) + ';'+ repr(x2)+ ';'+ repr(x1)+ ';'+ repr(y2)+ ';'+ repr(y1)+ ';'+ repr(recv_time - send_time) + ';' + repr(ns_end - ns_start) + ';' + repr(distance) + '\n')
         file_w.close()
 
     def get_data(self, socket, verbose):
