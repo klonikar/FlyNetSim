@@ -180,10 +180,10 @@ class UAV:
                 if time.time() - time_send > 2:
                     x, y = self.get_distance_metres(self.home_location, self.current_location)
                     n_time = time.time()
-                    msg = "@@@D_" + uav_to + "*" + self.uav_id + "***" + str(d2d_seq) + "***" + str(n_time) + "***" + str(x) + "***" + str(y) + "***"
+                    msg = "@@@D_" + uav_to + "*" + self.uav_id + "***" + str(d2d_seq) + "***" + str(n_time) + "***" + str(x) + "*" + str(y) + "***"
                     sock.send(msg)
                     d2d_seq += 1
-                    print(">>>>>> D2D send" + msg)
+                    print(">>>>>> D2D send " + msg)
                     time_send = time.time()
 
 
@@ -210,21 +210,21 @@ class UAV:
         send_time = float(d_list[2])
         recv_time = time.time()
         
-        if (d_list > 6):
-            ns_start = float(d_list[5])
-            ns_end = float(d_list[6])
+        if (d_list > 5):
+            ns_start = float(d_list[4])
+            ns_end = float(d_list[5])
         else:  #for DIRECT communication bypassing ns-3
             ns_start = time.time()
             ns_end = time.time()
 
-        ns_start = float(d_list[5])
-        ns_end = float(d_list[6])
 
         # get location and caculate distance
         x1, y1 = self.get_distance_metres(self.home_location, self.current_location)
 
-        x2 = float(d_list[3])
-        y2 = float(d_list[4])
+        x2, y2 = d_list[3].split('*')
+        x2 = float(x2)
+        y2 = float(y2)
+    
         distance = math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)
 
         #Print massage
