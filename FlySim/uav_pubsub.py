@@ -42,12 +42,6 @@ class UAV:
         self.tel_timestamp = time.time()
 
         # Setting up ZMQ related parameters
-        # self.zmq_tel_port = tel_port
-        # self.zmq_control_port = control_port
-        # self.zmq_tel_connection_str = "tcp://127.0.0.1:" + str(self.zmq_tel_port)
-        # self.zmq_control_connection_str = "tcp://127.0.0.1:" + str(self.zmq_control_port)
-        # self.zmq_tel_socket = self.create_zmq("PUB", self.zmq_tel_connection_str, "", verbose=self.verbose)
-        # self.zmq_control_socket = self.create_zmq("SUB", self.zmq_control_connection_str, verbose=self.verbose)
         self.zmq_tel_socket = tel_socket
         self.zmq_control_socket = control_socket
 
@@ -55,15 +49,15 @@ class UAV:
         self.sitl_port = sitl_port
         self.sitl_connection_str = "tcp:127.0.0.1:" + str(self.sitl_port)
         self.vehicle = None
-        #self.vehicle = self.connect_sitl(self.sitl_connection_str, self.verbose)
-        #self.condition_yaw(90)
-
-
 
         # Thread for sending sensor (NOT IMPLEMENTED FOR NOW)
-        thread_tel = threading.Thread(target=self.send_sensor_data)
-        thread_tel.daemon = True
-        thread_tel.start()
+        # thread_tel = threading.Thread(target=self.send_sensor_data)
+        # thread_tel.daemon = True
+        # thread_tel.start()
+
+        thread = threading.Thread(target=self.d2d_send, args=(self.zmq_tel_socket, self.verbose))
+        thread.daemon = True
+        thread.start()
 
         self.get_data(self.zmq_control_socket, verbose)
 
@@ -144,7 +138,8 @@ class UAV:
                 self.send_data("TELEMETRY#" + msg, self.zmq_tel_socket, self.verbose)
                 if self.home_location is not None and self.current_location is not None:
                     x, y = self.get_distance_metres(self.home_location, self.current_location)
-                    file_w = open("plot.csv", "a")
+                    file_name = "plot_" + self.uav_id +".csv"
+                    file_w = open(file_name, "a")
                     file_w.write(str(x) + '\t' + str(y) + '\t' + str(battery[battery.find("level=")+6:]) + '\n')
                     file_w.close()
                     print(str(x) + '\t' + str(y) + '\t' + str(battery[battery.find("level=")+6:]))
@@ -172,6 +167,27 @@ class UAV:
             return None
         return sock_new
 
+#TODO Check the 
+    def d2d_send(self, sock, verbose):
+        d2d_seq = 0
+        if self.uav_id == "000":
+            uav_to = "001"
+        else:
+            uav_to = "000"
+        time_send = time.time()
+        while True:
+            if self.home_location is not None and self.current_location is not None:
+                if time.time() - time_send > 2:
+                    x, y = self.get_distance_metres(self.home_location, self.current_location)
+                    n_time = time.time()
+                    msg = "@@@D_" + uav_to + "*" + self.uav_id + "***" + str(d2d_seq) + "***" + str(n_time) + "***" + str(x) + "*" + str(y) + "***"
+                    sock.send(msg)
+                    d2d_seq += 1
+                    print(">>>>>> D2D send " + msg)
+                    time_send = time.time()
+
+
+
     def send_data(self, message, sock, verbose):
         try:
             self.tel_msg_count += 1
@@ -183,11 +199,53 @@ class UAV:
         except:
             print(self.prefix + " TELEMETRY: Exception occurred while sending data")
 
+# TODO: check the function
+    def d2d_receive(self, message, verbose):
+        # @@@D_uav_id_i*uav_id_j***seq_no***timestamp***str(x)***str(y)***
+        d_list = message[5:].split('***')
+        if verbose:
+            print(">>>>>> D2D: ")
+            print(d_list)
+        uavs= d_list[0].split('*')
+        send_time = float(d_list[2])
+        recv_time = time.time()
+        
+        if (d_list > 5):
+            ns_start = float(d_list[4])
+            ns_end = float(d_list[5])
+        else:  #for DIRECT communication bypassing ns-3
+            ns_start = time.time()
+            ns_end = time.time()
+
+
+        # get location and caculate distance
+        x1, y1 = self.get_distance_metres(self.home_location, self.current_location)
+
+        x2, y2 = d_list[3].split('*')
+        x2 = float(x2)
+        y2 = float(y2)
+    
+        distance = math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)
+
+        #Print massage
+        print(">>>>>> UAV ID: " + repr(uavs[0]) + " Delay " + repr(recv_time - send_time) + " NS Delay " + repr(ns_end - ns_start) + " Distance " + repr(distance))
+        file_name = "D2D_" + self.uav_id +".csv"
+        file_w = open(file_name, "a")
+        if self.uav_id == "000":
+            file_w.write(repr(send_time) + ';'+ repr(x1)+ ';'+ repr(x2)+ ';'+ repr(y1)+ ';'+ repr(y2)+ ';'+ repr(recv_time - send_time) + ';' + repr(ns_end - ns_start) + ';' + repr(distance) + '\n')
+        else:
+            file_w.write(repr(send_time) + ';'+ repr(x2)+ ';'+ repr(x1)+ ';'+ repr(y2)+ ';'+ repr(y1)+ ';'+ repr(recv_time - send_time) + ';' + repr(ns_end - ns_start) + ';' + repr(distance) + '\n')
+        file_w.close()
+
     def get_data(self, socket, verbose):
         while True:
             data = socket.recv()
             if "TERMINATE" in data:
                 break
+            if "@@@D_" in data:
+                self.d2d_receive(data, verbose)
+                continue     
+
             if data:
                 if verbose:
                     print(self.prefix + " CONTROL: Message received :" + data)
@@ -210,92 +268,92 @@ class UAV:
                     ns_t1_timestamp = gcs_t2_timestamp
                     ns_t2_timestamp = gcs_t2_timestamp
 
-	        real_time_precision_tolerance = 0.05 
+            real_time_precision_tolerance = 0.05 
 
 
 		###### Do Synchronization between flysim and netsim ###################
-		delta = (ns_t2_timestamp - ns_t1_timestamp)/1000
-		print("GCS Send Timestamp: " + repr(gcs_t1_timestamp))
-		print("GCS Current Timestamp: " + repr(time.time()))
-		print("Simulated Network Delay: " + repr(delta))
-		if (gcs_t1_timestamp + delta) > gcs_t2_timestamp:
-		    time.sleep((gcs_t1_timestamp + delta) - gcs_t2_timestamp)
-		elif (gcs_t1_timestamp + delta + real_time_precision_tolerance) < gcs_t2_timestamp:
-		    print("Receiving time : " + repr(gcs_t2_timestamp) + " exceeds estimated arrival time: "+ repr(gcs_t1_timestamp + delta))
-		    continue # Skip and do not perform action when network simulation is delayed
+            delta = (ns_t2_timestamp - ns_t1_timestamp)/1000
+            print("GCS Send Timestamp: " + repr(gcs_t1_timestamp))
+            print("GCS Current Timestamp: " + repr(time.time()))
+            print("Simulated Network Delay: " + repr(delta))
+            if (gcs_t1_timestamp + delta) > gcs_t2_timestamp:
+                time.sleep((gcs_t1_timestamp + delta) - gcs_t2_timestamp)
+            elif (gcs_t1_timestamp + delta + real_time_precision_tolerance) < gcs_t2_timestamp:
+                print("Receiving time : " + repr(gcs_t2_timestamp) + " exceeds estimated arrival time: "+ repr(gcs_t1_timestamp + delta))
+                continue # Skip and do not perform action when network simulation is delayed
 
 
-                if "HEARTBEAT" in command[1]:
-                    if self.verbose:
-                        print("HEARTBEAT ", command[1])
-                    self.last_heartbeat = time.time()
+            if "HEARTBEAT" in command[1]:
+                if self.verbose:
+                    print("HEARTBEAT ", command[1])
+                self.last_heartbeat = time.time()
 
-                elif "DISCONNECT" in command[1]:
-                    status = self.disconnect_vehicle(verbose)
-                    self.status = "DISCONNECT"
-                    self.send_data("STATUS#DISCONNECT|"+str(status), self.zmq_tel_socket, self.verbose)
+            elif "DISCONNECT" in command[1]:
+                status = self.disconnect_vehicle(verbose)
+                self.status = "DISCONNECT"
+                self.send_data("STATUS#DISCONNECT|"+str(status), self.zmq_tel_socket, self.verbose)
 
-                elif "CONNECT" in command[1]:
-                    self.vehicle = self.connect_sitl(self.sitl_connection_str, self.verbose)
-                    self.condition_yaw(90)
-                    status = self.telemetry_add_attr(self.vehicle, self.verbose)
-                    time.sleep(2)
-                    self.status = "CONNECT"
-                    self.send_data("STATUS#CONNECT|"+str(status), self.zmq_tel_socket, self.verbose)
+            elif "CONNECT" in command[1]:
+                self.vehicle = self.connect_sitl(self.sitl_connection_str, self.verbose)
+                self.condition_yaw(90)
+                status = self.telemetry_add_attr(self.vehicle, self.verbose)
+                time.sleep(2)
+                self.status = "CONNECT"
+                self.send_data("STATUS#CONNECT|"+str(status), self.zmq_tel_socket, self.verbose)
 
-                elif "DISARM" in command[1]:
-                    status = self.arm_disarm_throttle(self.vehicle, "DISARM", verbose)
-                    self.status = "DISARM"
-                    self.send_data("STATUS#DISARM|"+str(status), self.zmq_tel_socket, self.verbose)
+            elif "DISARM" in command[1]:
+                status = self.arm_disarm_throttle(self.vehicle, "DISARM", verbose)
+                self.status = "DISARM"
+                self.send_data("STATUS#DISARM|"+str(status), self.zmq_tel_socket, self.verbose)
 
-                elif "ARM" in command[1]:
-                    self.arm_disarm_throttle(self.vehicle, "ARM", verbose)
-                    status = self.arm_disarm_throttle(self.vehicle, "ARM", verbose)
-                    self.status = "ARM"
-                    self.send_data("STATUS#ARM|"+str(status), self.zmq_tel_socket, self.verbose)
+            elif "ARM" in command[1]:
+                self.arm_disarm_throttle(self.vehicle, "ARM", verbose)
+                status = self.arm_disarm_throttle(self.vehicle, "ARM", verbose)
+                self.status = "ARM"
+                self.send_data("STATUS#ARM|"+str(status), self.zmq_tel_socket, self.verbose)
 
-                elif "TAKEOFF" in command[1]:
-                    self.set_mode(self.vehicle, "GUIDED", self.verbose)
-                    self.set_groundspeed(self.vehicle, self.groundspeed, self.verbose)
-                    self.vehicle.airspeed = 10
-                    status = self.takeoff(self.vehicle, self.set_initial_alt, self.verbose)
-                    self.home_location = self.current_location
-                    self.status = "TAKEOFF"
-                    self.send_data("STATUS#TAKEOFF|"+str(status), self.zmq_tel_socket, self.verbose)
+            elif "TAKEOFF" in command[1]:
+                self.set_mode(self.vehicle, "GUIDED", self.verbose)
+                self.set_groundspeed(self.vehicle, self.groundspeed, self.verbose)
+                self.vehicle.airspeed = 10
+                status = self.takeoff(self.vehicle, self.set_initial_alt, self.verbose)
+                self.home_location = self.current_location
+                self.status = "TAKEOFF"
+                self.send_data("STATUS#TAKEOFF|"+str(status), self.zmq_tel_socket, self.verbose)
 
-                elif "RTL" in command[1]:
-                    status = self.return_to_launch(self.vehicle, self.verbose)
-                    self.status = "RTL"
-                    self.send_data("STATUS#RTL|"+str(status), self.zmq_tel_socket, self.verbose)
+            elif "RTL" in command[1]:
+                status = self.return_to_launch(self.vehicle, self.verbose)
+                self.status = "RTL"
+                self.send_data("STATUS#RTL|"+str(status), self.zmq_tel_socket, self.verbose)
 
-                elif "LAND" in command[1]:
-                    status = self.land(self.vehicle, self.verbose)
-                    self.status = "LAND"
-                    self.send_data("STATUS#LAND|"+str(status), self.zmq_tel_socket, self.verbose)
+            elif "LAND" in command[1]:
+                status = self.land(self.vehicle, self.verbose)
+                self.status = "LAND"
+                self.send_data("STATUS#LAND|"+str(status), self.zmq_tel_socket, self.verbose)
 
-                elif "GO_UP" in command[1]:
-                    self.go_up(self.vehicle, command[1], verbose)
+            elif "GO_UP" in command[1]:
+                self.go_up(self.vehicle, command[1], verbose)
 
-                elif "GO_DOWN" in command[1]:
-                    self.go_down(self.vehicle, command[1], verbose)
+            elif "GO_DOWN" in command[1]:
+                self.go_down(self.vehicle, command[1], verbose)
 
-                elif "GO_FORWARD" in command[1]:
-                    self.go_forward(self.vehicle, command[1], verbose)
+            elif "GO_FORWARD" in command[1]:
+                self.go_forward(self.vehicle, command[1], verbose)
 
-                elif "GO_BACKWARD" in command[1]:
-                    self.go_backward(self.vehicle, command[1], verbose)
+            elif "GO_BACKWARD" in command[1]:
+                self.go_backward(self.vehicle, command[1], verbose)
 
-                elif "GO_LEFT" in command[1]:
-                    self.go_left(self.vehicle, command[1], verbose)
+            elif "GO_LEFT" in command[1]:
+                self.go_left(self.vehicle, command[1], verbose)
 
-                elif "GO_RIGHT" in command[1]:
-                    self.go_right(self.vehicle, command[1], verbose)
+            elif "GO_RIGHT" in command[1]:
+                self.go_right(self.vehicle, command[1], verbose)
 
-                elif "GO_TO" in command[1]:
-                    self.go_to(self.vehicle, command[1], verbose)
+            elif "GO_TO" in command[1]:
+                self.go_to(self.vehicle, command[1], verbose)
 
-                else:
-                    print("UNKOWN COMMAND")
+            else:
+                print("UNKOWN COMMAND")
 
         self.connection_close(self.verbose)
 

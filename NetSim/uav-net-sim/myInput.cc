@@ -163,10 +163,4 @@ void MyInput::loadInput (void)
   }
   /************  END OF XML PARSING **************/
 
-
-
-
 }
-
-
-

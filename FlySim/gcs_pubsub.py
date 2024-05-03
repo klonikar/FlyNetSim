@@ -345,6 +345,4 @@ def main(tel_port, control_port, instance, verbose):
     window = MyGCS(tel_port, control_port, instance, verbose)
     window.show()
     sys.exit(app.exec_())
-    #app.exec_()
-    window.connection_close()
 

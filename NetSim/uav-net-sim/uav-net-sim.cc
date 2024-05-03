@@ -1,4 +1,4 @@
-
+// System Libraries
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -14,6 +14,7 @@
 #include <libxml/xinclude.h>
 #include <libxml/tree.h>
 
+// NS3 Libraries
 #include "ns3/core-module.h"
 #include "ns3/network-module.h"
 #include "ns3/mobility-module.h"
@@ -25,6 +26,8 @@
 #include "ns3/epc-helper.h"
 #include "ns3/lte-module.h"
 #include "ns3/point-to-point-module.h"
+
+// My Libraries
 #include "myApps.h"
 #include "myInput.h"
 
@@ -36,7 +39,7 @@ long g_cmd_tot_delay = 0;
 long g_cmd_num = 0;
 
 
-pthread_t tid_gcs[2];
+pthread_t tid_gcs[2]; 
 pthread_t tid_uav[2];
 
 Ptr<MyApp> uavApp;
@@ -71,51 +74,55 @@ vector <Ptr<MyApp>> appVectCom;
 vector <Ptr<MyApp>> appVectTel;
 
 
+/* 
+* The above code is a function called RcvPacket. It receives a packet 
+* and an address as parameters.
+*/
 void RcvPacket(Ptr<Packet> p, Address &addr)
 {
-        uint8_t *buffer = new uint8_t[p->GetSize()];
-        p->CopyData(buffer, p->GetSize());
-        char *string =  (char *)buffer;
-        char *sTime = (char *)malloc(11);
-        memset(sTime, '\0', 11);
-        sprintf(sTime, "%10ld***", ns3::Simulator::Now().GetMilliSeconds());
-        strcat(string, sTime);
+  uint8_t *buffer = new uint8_t[p->GetSize()];
+  p->CopyData(buffer, p->GetSize());
+  char *string =  (char *)buffer;
+  char *sTime = (char *)malloc(11);
+  memset(sTime, '\0', 11);
+  sprintf(sTime, "%10ld***", ns3::Simulator::Now().GetMilliSeconds());
+  strcat(string, sTime);
 
 	char *s = (char *) malloc(1512);
-        memset(s, '\0', 1512);
+  memset(s, '\0', 1512);
 	strcpy(s, string);
   
-        if(string[3] == 'G')   // Packet from GCS to UAV with Control Commands
-        {
-          zmq_msg_t message;
-          zmq_msg_init_size (&message, strlen (string));
-          memcpy (zmq_msg_data (&message), string, strlen (string));
-          printf(" Publish MSG : %s \n", string);
-          zmq_sendmsg (publisherCm, &message, 0);
-          zmq_msg_close (&message);
+  if(string[3] == 'G')   // Packet from GCS to UAV with Control Commands
+  {
+    zmq_msg_t message;
+    zmq_msg_init_size (&message, strlen (string));
+    memcpy (zmq_msg_data (&message), string, strlen (string));
+    printf(" Publish MSG : %s \n", string);
+    zmq_sendmsg (publisherCm, &message, 0);
+    zmq_msg_close (&message);
 
 	  // Tokenize to parse packet to get packet ingress and egress time : do it in every one sec interval	 
 	  g_cmd_end = ns3::Simulator::Now().GetMilliSeconds();
 	  g_cmd_num++;
 	  
-          char* token = strtok(s, "***");
+    char* token = strtok(s, "***");
 	  int count = 0;
-          long ingress_time = 0;
-          long egress_time = 0;
+    long ingress_time = 0;
+    long egress_time = 0;
 
 	  while(token)
 	  {
-	      if(count == 4)
-              {
-             	ingress_time = (atol)(token);
-              }
-              else if(count == 5)
-              {
-               	egress_time = (atol)(token);
-              }
-              count++;
-              //printf("count = %d   token: %s \n", count, token);
-              token = strtok(NULL, "***");
+      if(count == 4)
+      {
+        ingress_time = (atol)(token);
+      }
+      else if(count == 5)
+      {
+        egress_time = (atol)(token);
+      }
+      count++;
+      //printf("count = %d   token: %s \n", count, token);
+      token = strtok(NULL, "***");
 	  }
 
 	  long net_delay = egress_time - ingress_time + 1;
@@ -123,75 +130,128 @@ void RcvPacket(Ptr<Packet> p, Address &addr)
 
 	  if((g_cmd_end - g_cmd_start) > 1000)   // print average network packet delay for command packets, in every sec
 	  {
-	      float g_cmd_avg_delay = (float)(g_cmd_tot_delay)/g_cmd_num;
-              printf(">>>>>> Average Network Delay for command packets: %f MilliSec.\n", g_cmd_avg_delay);
+      float g_cmd_avg_delay = (float)(g_cmd_tot_delay)/g_cmd_num;
+            printf(">>>>>> Average Network Delay for command packets: %f MilliSec.\n", g_cmd_avg_delay);
 
-	      //reset variables
-	      g_cmd_tot_delay = 0;
-	      g_cmd_num = 0; 
-	      g_cmd_start = g_cmd_end;
+      //reset variables
+      g_cmd_tot_delay = 0;
+      g_cmd_num = 0; 
+      g_cmd_start = g_cmd_end;
 	   }
 
-        }
-        else if (string[3] == 'U')  // Telemetry Packets from UAV to GCS
-        {
-         
-          zmq_msg_t message;
-          zmq_msg_init_size (&message, strlen (string));
-          memcpy (zmq_msg_data (&message), string, strlen (string));
-          printf(" Publish MSG : %s \n", string);
-          zmq_sendmsg (publisherTm, &message, 0); //Telemetry Information
-          std::cout << "Send DATA to EDGE >>>>>>>> " << std::endl;
-          zmq_msg_close (&message);
+  }
 
-        }
-        else if(string[3] == 'S')   // for SENSOR  // This section may need revision
-        {
-          printf("RECEIVED SENSOR DATA FROM NS3\n");
+  else if (string[3] == 'U')  // Telemetry Packets from UAV to GCS
+  {
+    
+    zmq_msg_t message;
+    zmq_msg_init_size (&message, strlen (string));
+    memcpy (zmq_msg_data (&message), string, strlen (string));
+    printf(" Publish MSG : %s \n", string);
+    zmq_sendmsg (publisherTm, &message, 0); //Telemetry Information
+    std::cout << "Send DATA to EDGE >>>>>>>> " << std::endl;
+    zmq_msg_close (&message);
 
-          while(true)
-          {
-            zmq_msg_t msg;
-            zmq_msg_init (&msg);
-            rc = (zmq_msg_recv (&msg, subscriber, 0));
-            int size = zmq_msg_size (&msg);
-            printf("ZMQ SENSOR DATA SIZE: %d \n", size);
-            char *strVZ = (char*)malloc (size + 1);
-            memcpy (strVZ, zmq_msg_data (&msg), size);
-            strVZ[size] = '\0';
-            printf("POPPED MSG from ZMQ: %s \n", strVZ);
+  }
 
-            if(strncmp(string+9,strVZ+9, 6) > 0)
-            {
-              //pop more from ZMQ and discard the current one
-              //continue;
-            }
-            else
-            {
-              printf(" Publish MSG from ZMQ: %s \n", strVZ);
-              zmq_sendmsg (publisherTm, &msg, 0); //Telemetry Information
-              break;
-            } 
-            zmq_msg_close (&msg);
-            free(strVZ);
-          }
+  else if(string[3] == 'S')   // for SENSOR  // This section may need revision
+  {
+    printf("RECEIVED SENSOR DATA FROM NS3\n");
 
-        }
-	else
-	{
+    while(true)
+    {
+      zmq_msg_t msg;
+      zmq_msg_init (&msg);
+      rc = (zmq_msg_recv (&msg, subscriber, 0));
+      int size = zmq_msg_size (&msg);
+      printf("ZMQ SENSOR DATA SIZE: %d \n", size);
+      char *strVZ = (char*)malloc (size + 1);
+      memcpy (strVZ, zmq_msg_data (&msg), size);
+      strVZ[size] = '\0';
+      printf("POPPED MSG from ZMQ: %s \n", strVZ);
 
-	}
+      if(strncmp(string+9,strVZ+9, 6) > 0)
+      {
+        //pop more from ZMQ and discard the current one
+        //continue;
+      }
+      else
+      {
+        printf(" Publish MSG from ZMQ: %s \n", strVZ);
+        zmq_sendmsg (publisherTm, &msg, 0); //Telemetry Information
+        break;
+      } 
+      zmq_msg_close (&msg);
+      free(strVZ);
+    }
 
-        free(sTime);
-        free(s);
+  }
+	else if(string[3] == 'D')   // from drone to drone
+  {
+    zmq_msg_t message;
+    zmq_msg_init_size (&message, strlen (string));
+    memcpy (zmq_msg_data (&message), string, strlen (string));
+    printf(" Publish MSG : %s \n", string);
+    zmq_sendmsg (publisherCm, &message, 0);
+    zmq_msg_close (&message);
 
-        delete buffer;
+	  // Tokenize to parse packet to get packet ingress and egress time : do it in every one sec interval	 
+	  g_cmd_end = ns3::Simulator::Now().GetMilliSeconds();
+	  g_cmd_num++;
+	  
+    char* token = strtok(s, "***");
+	  int count = 0;
+    long ingress_time = 0;
+    long egress_time = 0;
+
+	  while(token)
+	  {
+      if(count == 5)
+      {
+        ingress_time = (atol)(token);
+      }
+      else if(count == 6)
+      {
+        egress_time = (atol)(token);
+      }
+      count++;
+      //printf("count = %d   token: %s \n", count, token);
+      token = strtok(NULL, "***");
+	  }
+
+	  long net_delay = egress_time - ingress_time + 1;
+	  g_cmd_tot_delay += net_delay;
+
+	  if((g_cmd_end - g_cmd_start) > 4000)   // print average network packet delay for command packets, in every sec
+	  {
+      float g_cmd_avg_delay = (float)(g_cmd_tot_delay)/g_cmd_num;
+            printf(">>>>>> D2D Average Network Delay for command packets: %f MilliSec.\n", g_cmd_avg_delay);
+
+      //reset variables
+      g_cmd_tot_delay = 0;
+      g_cmd_num = 0; 
+      g_cmd_start = g_cmd_end;
+	   }
+  }
+  
+  else{	}
+
+  free(sTime);
+  free(s);
+
+  delete buffer;
 
 }
 
-
+/* 
+* The above code is defining a function called "RcvPktTrace" that connects 
+* a callback function "RcvPacket" to the reception of packets in a network simulation. 
+* The callback function will be called whenever a packet is received by a PacketSink 
+* vapplication in any node of the network.
+*/
+ 
 void RcvPktTrace(){
-        Config::ConnectWithoutContext("/NodeList/*/ApplicationList/*/$ns3::PacketSink/Rx", MakeCallback(&RcvPacket));
+  Config::ConnectWithoutContext("/NodeList/*/ApplicationList/*/$ns3::PacketSink/Rx", MakeCallback(&RcvPacket));
 }
 
 /*****************************************************/
@@ -199,18 +259,34 @@ void RcvPktTrace(){
 /**** send command to specific UAV node over socket***/
 /*****************************************************/
 
+struct thread_args
+{
+  int index;
+  vector <Ptr<MyApp>> *vect;
+};
+
+/*
+* The above code is a function called "rcvCommands" that receives commands 
+* from a ZeroMQ subscriber socket and sends them to specific UAV applications.
+*/
+// TODO: Make different sockets for each UAV to 550* ports
 void* rcvCommands(void *arg)
 {
 
   std::cout << "STRUCT VOID : " << arg << std::endl; 
-  vector <Ptr<MyApp>> *vectCom = (vector <Ptr<MyApp>> *) arg;
+  thread_args *args = (thread_args *) arg;
+  vector <Ptr<MyApp>> *vectCom = args->vect;
   int numUav = vectCom->size();
   std::cout << "Number of UAV APPs receiving Commands: " << numUav << std::endl; 
   int rc;
   void *context = zmq_ctx_new ();
   void *subscriber = zmq_socket (context, ZMQ_SUB);  
 
-  rc = zmq_connect (subscriber, "tcp://localhost:5500");
+  // Create a subscriber socket with port 5501 + index
+  char port[10] = {'\0'};
+  sprintf(port, "%d", 5501 + args->index);
+  std::cout << "PORT : " << port << std::endl;
+  rc = zmq_connect (subscriber, ("tcp://localhost:" + string(port)).c_str());
   assert (rc == 0);
   zmq_setsockopt( subscriber, ZMQ_SUBSCRIBE, "", 0);
   
@@ -237,11 +313,9 @@ void* rcvCommands(void *arg)
     Ptr<MyApp> app = (*vectCom)[sock_index]; //Pick specific UAV App 
  
     Ptr<Socket> send_socket = app->m_socket;
-    //  Ptr<Socket> send_socket = gcsApp->m_socket;
     last_schedule_time += 0.001; // Maintains Causality, although Scheduling is sequential
     Time tNext (Seconds (last_schedule_time));
     ns3::Simulator::Schedule(tNext, &MyApp::SendMsg, app, send_socket, string);
-    //ns3::Simulator::Schedule(tNext, &MyApp::SendMsg, gcsApp, send_socket, string);
   }
 
   zmq_close (subscriber);
@@ -256,6 +330,10 @@ void* rcvCommands(void *arg)
 /****   send telemetry to  GCS node over socket    ***/
 /*****************************************************/
 
+/*
+* The above code is declaring a function named "rcvTelemetry" that takes a void pointer 
+* as an argument. The function does not have a return type specified.
+*/
 void* rcvTelemetry(void *arg)
 {
   zmq_bind (publisherVid, "tcp://127.0.0.1:5000");
@@ -322,42 +400,43 @@ void* rcvTelemetry(void *arg)
 
     if(!strncmp(loc_pattern, "DISTANCE***", 11))  //If the message has the word 'DISTANCE', update the location of UAV
     { 
-	//location update
-        std::cout << "DISTANCE VALUE found " << std::endl;
-        
-        char *curX = (char *)malloc(15);
-        char *curY = (char *)malloc(15);
+      //location update
+      std::cout << "DISTANCE VALUE found " << std::endl;
+      
+      char *curX = (char *)malloc(15);
+      char *curY = (char *)malloc(15);
+      int uav = atoi(uav_index);
 
-        int size = 0;
-        for( char *c = &string[22]; *c!='*'; c++){
-            curX[size++] = *c;
-        }
-        curX[size] = '\0';
-        size = size + 3; //increment to cover the '***'
+      int size = 0;
+      for( char *c = &string[22]; *c!='*'; c++){
+          curX[size++] = *c;
+      }
+      curX[size] = '\0';
+      size = size + 3; //increment to cover the '***'
 
-        int size2 = 0;
-        for( char *c = &string[22+size]; *c!='*'; c++){
-            curY[size2++] = *c;
-        }
-        curY[size2] = '\0';
+      int size2 = 0;
+      for( char *c = &string[22+size]; *c!='*'; c++){
+          curY[size2++] = *c;
+      }
+      curY[size2] = '\0';
 
-        printf(">>>>>> X-Value:  %s  ;  Y-Value:  %s <<<<<<\n", curX, curY);
+      printf(">>>>>> UAV-Value %d  ;  X-Value:  %s  ;  Y-Value:  %s <<<<<<\n", uav, curX, curY);
 
-        float cur_x = atof(curX);
-        float cur_y = atof(curY);
+      float cur_x = atof(curX);
+      float cur_y = atof(curY);
 
-        //Update mobility based on current position
-        printf("X \t %f \t Y \t %f\n", cur_x, cur_y);
-        Ptr<Node> uavNode = ns3::NodeList::GetNode(0); // Need to change for multi-UAV
-        Ptr<ConstantPositionMobilityModel> mmUAV = uavNode->GetObject<ConstantPositionMobilityModel>();
-        ns3::Simulator::ScheduleNow(&ConstantPositionMobilityModel::SetPosition, mmUAV, Vector(cur_x, cur_y, 10));
+      //Update mobility based on current position
+      // printf("X \t %f \t Y \t %f\n", cur_x, cur_y);
+      printf("Uav %d X \t %f \t Y \t %f\n", uav, cur_x, cur_y);
+      //TODO: Need to change for multi-UAV
+      Ptr<Node> uavNode = ns3::NodeList::GetNode(uav); 
+      Ptr<ConstantPositionMobilityModel> mmUAV = uavNode->GetObject<ConstantPositionMobilityModel>();
+      ns3::Simulator::ScheduleNow(&ConstantPositionMobilityModel::SetPosition, mmUAV, Vector(cur_x, cur_y, 10));
 
-        free(curX);
-        free(curY);
+      free(curX);
+      free(curY);
      
     }
-    free(loc_pattern);
-    // position update done for uav_index
 
     if(strncmp(loc_pattern, "DISTANCE***", 11) != 0)  // The UAV message is a normal Telemetry and not a location update
     {
@@ -366,15 +445,15 @@ void* rcvTelemetry(void *arg)
       Ptr<MyApp> app = (*vectTel)[sock_index];  
       Ptr<Socket> send_socket = app->m_socket;
       std::cout << "SELECTED APP ------- " << app << std::endl;
-    
-      //std::cout << "UAV APP ------- " << uavApp << std::endl;
-      //Ptr<Socket> send_socket = uavApp->m_socket;
-
+   
       last_schedule_time += 0.001; // Maintains Causality, although Scheduling is sequential
       Time tNext (Seconds (last_schedule_time));
       ns3::Simulator::Schedule(tNext, &MyApp::SendMsg, app, send_socket, string);
-      //ns3::Simulator::Schedule(tNext, &MyApp::SendMsg, uavApp, send_socket, string);
     }
+
+    free(loc_pattern);
+    // position update done for uav_index
+
     zmq_msg_close (&message);
 
     free(sTime);
@@ -406,7 +485,7 @@ int main (int argc, char *argv[])
 
   /*********** Bind Publisher socket ***********/
   zmq_bind (publisherCm, "tcp://127.0.0.1:5601");
-  zmq_bind (publisherTm, "tcp://127.0.0.1:5501");
+  zmq_bind (publisherTm, "tcp://127.0.0.1:5500");
 
 
   /*********** Load input from XML file ***********/
@@ -494,12 +573,15 @@ int main (int argc, char *argv[])
   InternetStackHelper internet;
   internet.Install (remoteHostContainer);
 
+  /******************* LTE Network ************************/
   /*********************** INTERNET stack in EPC *********************************/
   PointToPointHelper p2ph;
   p2ph.SetDeviceAttribute ("DataRate", DataRateValue (DataRate ("100Gb/s")));
   p2ph.SetDeviceAttribute ("Mtu", UintegerValue (1500));
   p2ph.SetChannelAttribute ("Delay", TimeValue (Seconds (0.00001)));
   NetDeviceContainer internetDevices = p2ph.Install (pgw, remoteHost);
+  // p2ph.EnablePcapAll("uav-net-sim"); // p2p enable pcap
+
   Ipv4AddressHelper ipv4h;
   ipv4h.SetBase ("1.0.0.0", "255.0.0.0");
   Ipv4InterfaceContainer internetIpIfaces = ipv4h.Assign (internetDevices);
@@ -545,7 +627,6 @@ int main (int argc, char *argv[])
     congueDevices.Add(lteHelper->InstallUeDevice (congNode.Get(u)));
   }
 
-
   /******************* INTERNET Stack in LTE ***********************/
   Ipv4InterfaceContainer ueIpIfaceList;
   // assign IP address to UEs
@@ -586,7 +667,7 @@ int main (int argc, char *argv[])
   /********************** Finished LTE Networks ********************/
 
 
-
+  /******************* WiFI Network ************************/
   /******************** Define WiFi stack *****************/
   NodeContainer nodesWifiAp;
   nodesWifiAp.Create (1);
@@ -652,18 +733,16 @@ int main (int argc, char *argv[])
   Ipv4InterfaceContainer interfacesWifiAp;
   Ipv4InterfaceContainer interfacesWifiSta;
   Ipv4InterfaceContainer interfacesWifiCong;
-    char ipString[30] = {'\0'};
-    sprintf(ipString, "10.10.1.0");
-    ipv4Wifi.SetBase (ipString, "255.255.255.0");
-    interfacesWifiAp.Add(ipv4Wifi.Assign (devicesWifiAp.Get(0)));
-    for (uint32_t i = 0; i < uavNode.GetN(); ++i){
-      interfacesWifiSta.Add(ipv4Wifi.Assign (devicesWifiSta.Get(i)));
-    }
+  char ipString[30] = {'\0'};
+  sprintf(ipString, "10.10.1.0");
+  ipv4Wifi.SetBase (ipString, "255.255.255.0");
+  interfacesWifiAp.Add(ipv4Wifi.Assign (devicesWifiAp.Get(0)));
+  for (uint32_t i = 0; i < uavNode.GetN(); ++i){
+    interfacesWifiSta.Add(ipv4Wifi.Assign (devicesWifiSta.Get(i)));
+  }
   interfacesWifiCong.Add(ipv4Wifi.Assign (devicesWifiCong));
    
-  /******************************************************************/
-
-
+  /************** Finished WiFi Network ******************************/
 
 
   /************ Write Application *****************/
@@ -673,173 +752,162 @@ int main (int argc, char *argv[])
   if(network_type == 0)
   {
   /************** Uplink Data transfer for Telemetry *************/
-  for (uint32_t i = 0; i < uavNode.GetN(); ++i){
-    Ptr<Node> remoteWifiHost = nodesWifiAp.Get (0);
-    Ipv4Address remoteWifiHostAddr = interfacesWifiAp.GetAddress (0);
-    uint16_t sinkport = 100+i;
-    Address sinkAddress(InetSocketAddress (remoteWifiHostAddr, sinkport));
-    ApplicationContainer sinkApp;
-    PacketSinkHelper packetSinkHelper("ns3::TcpSocketFactory", InetSocketAddress(Ipv4Address::GetAny(), sinkport));
-    sinkApp = packetSinkHelper.Install(remoteWifiHost);
-    sinkApp.Start(Seconds(0.0));
+    for (uint32_t i = 0; i < uavNode.GetN(); ++i){
+      Ptr<Node> remoteWifiHost = nodesWifiAp.Get (0);
+      Ipv4Address remoteWifiHostAddr = interfacesWifiAp.GetAddress (0);
+      uint16_t sinkport = 100+i;
+      Address sinkAddress(InetSocketAddress (remoteWifiHostAddr, sinkport));
+      ApplicationContainer sinkApp;
+      PacketSinkHelper packetSinkHelper("ns3::TcpSocketFactory", InetSocketAddress(Ipv4Address::GetAny(), sinkport));
+      sinkApp = packetSinkHelper.Install(remoteWifiHost);
+      sinkApp.Start(Seconds(0.0));
 
-    Ptr<Socket> ns3TcpSocket = Socket::CreateSocket(uavNode.Get(i), TcpSocketFactory::GetTypeId());
-    Ptr<MyApp> app = CreateObject<MyApp>();
-    app->Setup(ns3TcpSocket, sinkAddress, 1400, 50000, DataRate("1Mbps"), (2*i), 1);
-    uavNode.Get(i)->AddApplication(app);
-    app->SetStartTime(Seconds(1.0));
-    std::cout << "APP : " << app << std::endl; 
-    uavApp = app;
-    appVectTel.push_back(app);
-  }
- }
- else
- {
-  /************** LTE Uplink Data transfer for Telemetry *************/
-  for (uint32_t i = 0; i < uavNode.GetN(); ++i){
-    uint16_t sinkport = 110+i;
-    Address sinkAddress(InetSocketAddress (remoteHostAddr, sinkport));
-    ApplicationContainer sinkApp;
-    PacketSinkHelper packetSinkHelper("ns3::TcpSocketFactory", InetSocketAddress(Ipv4Address::GetAny(), sinkport));
-    sinkApp = packetSinkHelper.Install(remoteHost);
-    sinkApp.Start(Seconds(0.1));
+      Ptr<Socket> ns3TcpSocket = Socket::CreateSocket(uavNode.Get(i), TcpSocketFactory::GetTypeId());
+      Ptr<MyApp> app = CreateObject<MyApp>();
+      app->Setup(ns3TcpSocket, sinkAddress, 1400, 50000, DataRate("1Mbps"), (2*i), 1);
+      uavNode.Get(i)->AddApplication(app);
+      app->SetStartTime(Seconds(1.0));
+      std::cout << "APP : " << app << std::endl; 
+      uavApp = app;
+      appVectTel.push_back(app);
+    }
 
-    Ptr<Socket> ns3TcpSocket = Socket::CreateSocket(uavNode.Get(i), TcpSocketFactory::GetTypeId());
-    Ptr<MyApp> app = CreateObject<MyApp>();
-    app->Setup(ns3TcpSocket, sinkAddress, 1400, 50000, DataRate("1Mbps"), (2*i), 1);
-    uavNode.Get(i)->AddApplication(app);
-    app->SetStartTime(Seconds(1.0));
-    uavApp = app;
-    appVectTel.push_back(app);
+    /************** Downlink Data transfer for Control commands *************/
+    for (uint32_t i = 0; i < uavNode.GetN(); ++i){
+      Ptr<Node> remoteWifiHost = uavNode.Get (i);
+      Ipv4Address remoteWifiHostAddr = interfacesWifiSta.GetAddress (i);
+      uint16_t sinkport = 1000+i;
+      Address sinkAddress(InetSocketAddress (remoteWifiHostAddr, sinkport));
+      ApplicationContainer sinkApp;
+      PacketSinkHelper packetSinkHelper("ns3::TcpSocketFactory", InetSocketAddress(Ipv4Address::GetAny(), sinkport));
+      sinkApp = packetSinkHelper.Install(remoteWifiHost);
+      sinkApp.Start(Seconds(0.0));
 
-  }
+      Ptr<Socket> ns3TcpSocket = Socket::CreateSocket(nodesWifiAp.Get(0), TcpSocketFactory::GetTypeId());
+      Ptr<MyApp> app = CreateObject<MyApp>();
+      app->Setup(ns3TcpSocket, sinkAddress, 1400, 50000, DataRate("1Mbps"), (2*i), 0);
+      nodesWifiAp.Get(0)->AddApplication(app);
+      app->SetStartTime(Seconds(1.0));
+      std::cout << "APP : " << app << std::endl; 
+      gcsApp = app;
+      appVectCom.push_back(app);
+    }
 
- }
- 
+    /************** WiFi Uplink Data transfer for Congestion *************/
+    if (DataRate(congRate) > 0)
+    {
+      for (uint32_t i = 0; i < congNode.GetN(); ++i){
+        Ptr<Node> remoteHost = nodesWifiAp.Get (0);
+        Ipv4Address remoteHostAddr = interfacesWifiAp.GetAddress (0);
+        uint16_t sinkport = 1234+ i;
+        Address sinkAddress(InetSocketAddress (remoteHostAddr, sinkport));
+        ApplicationContainer sinkApp;
+        PacketSinkHelper packetSinkHelper("ns3::TcpSocketFactory", InetSocketAddress(Ipv4Address::GetAny(), sinkport));
+        sinkApp = packetSinkHelper.Install(remoteHost);
+        sinkApp.Start(Seconds(0.1));
 
- 
-  if(network_type == 1)
-  {
-  /************** LTE Downlink Data transfer for Control *************/
-   for (uint32_t i = 0; i < uavNode.GetN(); ++i){
-    Ptr<Node> remoteLteHost = uavNode.Get (i);
-    Ipv4Address remoteLteHostAddr = ueIpIfaceList.GetAddress (i);
-    //Ipv4Address remoteHostAddrWifi = interfacesWifiSta.GetAddress (i);
+        Ptr<Socket> ns3TcpSocket = Socket::CreateSocket(congNode.Get(i), TcpSocketFactory::GetTypeId());
+        Ptr<MyApp> app = CreateObject<MyApp>();
+        app->Setup(ns3TcpSocket, sinkAddress, congPktSize, 500000000, DataRate(congRate), (101+i), 1);
+        app->m_congId = i;
+        app->m_rate = inputCongRate;
+        congNode.Get(i)->AddApplication(app);
+        app->SetStartTime(Seconds(0.1));
+        std::cout << "Sending Congestion Traffic" <<std::endl;
+        app->SendPacket();
+      }
+    }
+    else
+    {
+      std::cout << " Congestion Traffic rate = 0" <<std::endl;
+    }
 
-    uint16_t sinkport = 2000+i;
-    Address sinkAddress(InetSocketAddress (remoteLteHostAddr, sinkport));
-    ApplicationContainer sinkApp;
-    PacketSinkHelper packetSinkHelper("ns3::TcpSocketFactory", InetSocketAddress(Ipv4Address::GetAny(), sinkport));
-    sinkApp = packetSinkHelper.Install(remoteLteHost);
-    sinkApp.Start(Seconds(0.0));
-
-    Ptr<Socket> ns3TcpSocket = Socket::CreateSocket(remoteHost, TcpSocketFactory::GetTypeId());
-    Ptr<MyApp> app = CreateObject<MyApp>();
-    app->Setup(ns3TcpSocket, sinkAddress, 1400, 50000, DataRate("1Mbps"), (2*i), 1);
-    remoteHost->AddApplication(app);
-    app->SetStartTime(Seconds(1.0));
-    std::cout << "Sending LTE packet on Downlink" << std::endl;
-    gcsApp = app;
-    appVectCom.push_back(app);
-  }
- }
- else
- { 
-  /************** Downlink Data transfer for Control commands *************/
-  for (uint32_t i = 0; i < uavNode.GetN(); ++i){
-    Ptr<Node> remoteWifiHost = uavNode.Get (i);
-    Ipv4Address remoteWifiHostAddr = interfacesWifiSta.GetAddress (i);
-    uint16_t sinkport = 1000+i;
-    Address sinkAddress(InetSocketAddress (remoteWifiHostAddr, sinkport));
-    ApplicationContainer sinkApp;
-    PacketSinkHelper packetSinkHelper("ns3::TcpSocketFactory", InetSocketAddress(Ipv4Address::GetAny(), sinkport));
-    sinkApp = packetSinkHelper.Install(remoteWifiHost);
-    sinkApp.Start(Seconds(0.0));
-
-    Ptr<Socket> ns3TcpSocket = Socket::CreateSocket(nodesWifiAp.Get(0), TcpSocketFactory::GetTypeId());
-    Ptr<MyApp> app = CreateObject<MyApp>();
-    app->Setup(ns3TcpSocket, sinkAddress, 1400, 50000, DataRate("1Mbps"), (2*i), 0);
-    nodesWifiAp.Get(0)->AddApplication(app);
-    app->SetStartTime(Seconds(1.0));
-    std::cout << "APP : " << app << std::endl; 
-    gcsApp = app;
-    appVectCom.push_back(app);
-  }
- }
-
-
-
- if(network_type == 0)
- {
-   /************** WiFi Uplink Data transfer for Congestion *************/
-  if (DataRate(congRate) > 0)
-  {
-   for (uint32_t i = 0; i < congNode.GetN(); ++i){
-    Ptr<Node> remoteHost = nodesWifiAp.Get (0);
-    Ipv4Address remoteHostAddr = interfacesWifiAp.GetAddress (0);
-    uint16_t sinkport = 1234+ i;
-    Address sinkAddress(InetSocketAddress (remoteHostAddr, sinkport));
-    ApplicationContainer sinkApp;
-    PacketSinkHelper packetSinkHelper("ns3::TcpSocketFactory", InetSocketAddress(Ipv4Address::GetAny(), sinkport));
-    sinkApp = packetSinkHelper.Install(remoteHost);
-    sinkApp.Start(Seconds(0.1));
-
-    Ptr<Socket> ns3TcpSocket = Socket::CreateSocket(congNode.Get(i), TcpSocketFactory::GetTypeId());
-    Ptr<MyApp> app = CreateObject<MyApp>();
-    app->Setup(ns3TcpSocket, sinkAddress, congPktSize, 500000000, DataRate(congRate), (101+i), 1);
-    app->m_congId = i;
-    app->m_rate = inputCongRate;
-    congNode.Get(i)->AddApplication(app);
-    app->SetStartTime(Seconds(0.1));
-    std::cout << "Sending Congestion Traffic" <<std::endl;
-    app->SendPacket();
-   }
   }
   else
   {
-    std::cout << " Congestion Traffic rate = 0" <<std::endl;
-  }
- }
- else
- {
-  if (DataRate(congRate) > 0)
-  {
-   /************** LTE Uplink Data transfer for Congestion *************/
-   for (uint32_t i = 0; i < congNode.GetN(); ++i){
-    uint16_t sinkport = 500+i;
-    Address sinkAddress(InetSocketAddress (remoteHostAddr, sinkport));
-    ApplicationContainer sinkApp;
-    PacketSinkHelper packetSinkHelper("ns3::TcpSocketFactory", InetSocketAddress(Ipv4Address::GetAny(), sinkport));
-    sinkApp = packetSinkHelper.Install(remoteHost);
-    sinkApp.Start(Seconds(0.1));
+    /************** LTE Uplink Data transfer for Telemetry *************/
+    for (uint32_t i = 0; i < uavNode.GetN(); ++i){
+      uint16_t sinkport = 110+i;
+      Address sinkAddress(InetSocketAddress (remoteHostAddr, sinkport));
+      ApplicationContainer sinkApp;
+      PacketSinkHelper packetSinkHelper("ns3::TcpSocketFactory", InetSocketAddress(Ipv4Address::GetAny(), sinkport));
+      sinkApp = packetSinkHelper.Install(remoteHost);
+      sinkApp.Start(Seconds(0.1));
 
-    Ptr<Socket> ns3TcpSocket = Socket::CreateSocket(congNode.Get(i), TcpSocketFactory::GetTypeId());
-    Ptr<MyApp> app = CreateObject<MyApp>();
-    app->Setup(ns3TcpSocket, sinkAddress, congPktSize, 500000000, DataRate(congRate), (101+i), 1);
-    app->m_congId = i;
-    app->m_rate = inputCongRate;
-    congNode.Get(i)->AddApplication(app);
-    app->SetStartTime(Seconds(0.1));
-    std::cout << "Sending Congestion Traffic" <<std::endl;
-    app->SendPacket();
+      Ptr<Socket> ns3TcpSocket = Socket::CreateSocket(uavNode.Get(i), TcpSocketFactory::GetTypeId());
+      Ptr<MyApp> app = CreateObject<MyApp>();
+      app->Setup(ns3TcpSocket, sinkAddress, 1400, 50000, DataRate("1Mbps"), (2*i), 1);
+      uavNode.Get(i)->AddApplication(app);
+      app->SetStartTime(Seconds(1.0));
+      uavApp = app;
+      appVectTel.push_back(app);
 
-   }
+    }
+
+    for (uint32_t i = 0; i < uavNode.GetN(); ++i){
+      Ptr<Node> remoteLteHost = uavNode.Get (i);
+      Ipv4Address remoteLteHostAddr = ueIpIfaceList.GetAddress (i);
+      //Ipv4Address remoteHostAddrWifi = interfacesWifiSta.GetAddress (i);
+
+      uint16_t sinkport = 2000+i;
+      Address sinkAddress(InetSocketAddress (remoteLteHostAddr, sinkport));
+      ApplicationContainer sinkApp;
+      PacketSinkHelper packetSinkHelper("ns3::TcpSocketFactory", InetSocketAddress(Ipv4Address::GetAny(), sinkport));
+      sinkApp = packetSinkHelper.Install(remoteLteHost);
+      sinkApp.Start(Seconds(0.0));
+
+      Ptr<Socket> ns3TcpSocket = Socket::CreateSocket(remoteHost, TcpSocketFactory::GetTypeId());
+      Ptr<MyApp> app = CreateObject<MyApp>();
+      app->Setup(ns3TcpSocket, sinkAddress, 1400, 50000, DataRate("1Mbps"), (2*i), 1);
+      remoteHost->AddApplication(app);
+      app->SetStartTime(Seconds(1.0));
+      std::cout << "Sending LTE packet on Downlink" << std::endl;
+      gcsApp = app;
+      appVectCom.push_back(app);
+    }
+
+    if (DataRate(congRate) > 0)
+    {
+    /************** LTE Uplink Data transfer for Congestion *************/
+      for (uint32_t i = 0; i < congNode.GetN(); ++i){
+        uint16_t sinkport = 500+i;
+        Address sinkAddress(InetSocketAddress (remoteHostAddr, sinkport));
+        ApplicationContainer sinkApp;
+        PacketSinkHelper packetSinkHelper("ns3::TcpSocketFactory", InetSocketAddress(Ipv4Address::GetAny(), sinkport));
+        sinkApp = packetSinkHelper.Install(remoteHost);
+        sinkApp.Start(Seconds(0.1));
+
+        Ptr<Socket> ns3TcpSocket = Socket::CreateSocket(congNode.Get(i), TcpSocketFactory::GetTypeId());
+        Ptr<MyApp> app = CreateObject<MyApp>();
+        app->Setup(ns3TcpSocket, sinkAddress, congPktSize, 500000000, DataRate(congRate), (101+i), 1);
+        app->m_congId = i;
+        app->m_rate = inputCongRate;
+        congNode.Get(i)->AddApplication(app);
+        app->SetStartTime(Seconds(0.1));
+        std::cout << "Sending Congestion Traffic" <<std::endl;
+        app->SendPacket();
+
+        }
+    }
+    else
+    {
+      std::cout << " Congestion Traffic rate = 0" <<std::endl;
+    }
   }
-  else
-  {
-    std::cout << " Congestion Traffic rate = 0" <<std::endl;
-  }
- }
  
 
   /************* CREATE PUB SUB THREADS ******************/
   int err;
-  err = pthread_create(&(tid_gcs[0]), NULL, &rcvCommands, (void *)(&appVectCom));
-  if(err != 0)
+  thread_args *myargs = new thread_args[nUAV];
+  for (int i = 0; i < nUAV; ++i){
+    myargs[i].index = i;
+    myargs[i].vect = &appVectCom;
+    err = pthread_create(&(tid_gcs[0]), NULL, &rcvCommands, (void *)(&myargs[i]));
+    if(err != 0)
             printf("\n can't create thread : [%s]", strerror(err));
     else
             printf("\n Command Thread created successfully \n");
-
+  } 
   err = pthread_create(&(tid_uav[0]), NULL, &rcvTelemetry, (void *)(&appVectTel));
   if(err != 0)
             printf("\n can't create thread : [%s]", strerror(err));
@@ -863,4 +931,5 @@ int main (int argc, char *argv[])
   Simulator::Stop (Seconds (100000.));
   Simulator::Run ();
   Simulator::Destroy ();
+  delete myargs;
 }

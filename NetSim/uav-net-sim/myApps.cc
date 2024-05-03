@@ -36,6 +36,7 @@ MyApp::~MyApp()
   m_elapse = 0;
 }
 
+// Print the Parameters of the network
 void MyApp::PrintParameters ()
 {
    std::cout << "Socket Value : " << m_socket << std::endl;
@@ -48,7 +49,7 @@ void MyApp::PrintParameters ()
 
 }
 
-
+// Init from the ns3 code
 void MyApp::Setup (Ptr<Socket> socket, Address address, uint32_t packetSize, uint32_t nPackets, DataRate dataRate, uint32_t appId, uint32_t appType)
 {
   m_socket = socket;
@@ -60,6 +61,7 @@ void MyApp::Setup (Ptr<Socket> socket, Address address, uint32_t packetSize, uin
   m_appType = appType;
 }
 
+// The `StartApplication` function in the `MyApp` class is responsible for starting the application. It sets the `m_running` flag to true, initializes the `m_packetsSent` counter to 0, binds the socket, connects to the peer address, and stores the current simulation time in `m_elapse`. Additionally, it prints the socket and peer address information for debugging purposes.
 void MyApp::StartApplication (void)
 {
   m_running = true;
@@ -72,6 +74,8 @@ void MyApp::StartApplication (void)
 
 }
 
+
+// The `StopApplication` function is used to stop the application from sending any more packets.
 void MyApp::StopApplication (void)
 {
   m_running = false;
@@ -88,6 +92,7 @@ void MyApp::StopApplication (void)
 }
 
 
+// The `SendMsg` function in the `MyApp` class is responsible for sending a message over a socket.
 void MyApp::SendMsg (Ptr<Socket> send_socket, char *msg)
 {
   int len = strlen(msg);
@@ -101,6 +106,8 @@ void MyApp::SendMsg (Ptr<Socket> send_socket, char *msg)
 
 }
 
+
+// The `SendPacket` function in the `MyApp` class is responsible for sending a packet over a socket.
 void MyApp::SendPacket (void)
 {
   m_packetsSent++;
@@ -124,12 +131,12 @@ void MyApp::SendPacket (void)
 }
 
 
+// The `ScheduleTx` function in the `MyApp` class is responsible for scheduling the next packet transmission.
 void MyApp::ScheduleTx (void)
 {
-      double next_sched = (((double)(m_packetSize) * 8) / (double)(m_rate*1000000));
-      Time tNext (Seconds (next_sched));
+  double next_sched = (((double)(m_packetSize) * 8) / (double)(m_rate*1000000));
+  Time tNext (Seconds (next_sched));
 
-      m_sendEvent = Simulator::Schedule (tNext, &MyApp::SendPacket, this);
-      last_schedule_time = tNext.GetSeconds();
+  m_sendEvent = Simulator::Schedule (tNext, &MyApp::SendPacket, this);
+  last_schedule_time = tNext.GetSeconds();
 }
-
