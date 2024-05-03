@@ -19,7 +19,8 @@ This code was tested on an Ubuntu 16.04 system. For network simulator, ns-3.27 i
 1. Additional Dependencies for FlyNetSim:   
 Install latest version of czmq, libzmq, libczmq and libxml
 ```
-  sudo apt-get install libzmq5 libzmq-dev libczmq4 libczmq-dev czmq libxml2 libxml2-dev
+#sudo apt-get install libzmq5 libzmq-dev libczmq4 libczmq-dev czmq libxml2 libxml2-dev
+sudo apt install libzmq5 libczmq-dev libczmq4 libxml2 libxml2-dev
 ```
 If you get error for versions, install the latest available version.
 
